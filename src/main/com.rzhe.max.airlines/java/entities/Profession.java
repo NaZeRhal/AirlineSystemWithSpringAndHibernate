@@ -1,5 +1,8 @@
 package entities;
 
+import org.springframework.stereotype.Component;
+
+@Component("profession")
 public class Profession extends Entity<Long> {
     private String name;
 

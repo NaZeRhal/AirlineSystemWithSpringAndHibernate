@@ -1,6 +1,9 @@
 package entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CrewManVsFlight extends Entity<Long> {
     private Flight flight;
     private CrewMan crewMan;
@@ -9,6 +12,7 @@ public class CrewManVsFlight extends Entity<Long> {
         return flight;
     }
 
+    @Autowired
     public void setFlight(Flight flight) {
         this.flight = flight;
     }
@@ -17,6 +21,7 @@ public class CrewManVsFlight extends Entity<Long> {
         return crewMan;
     }
 
+    @Autowired
     public void setCrewMan(CrewMan crewMan) {
         this.crewMan = crewMan;
     }

@@ -1,7 +1,12 @@
 package entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
+@Component("flight")
 public class Flight extends Entity<Long> {
     private String flightCode;
     private Airport departureAirport;
@@ -22,14 +27,18 @@ public class Flight extends Entity<Long> {
         return departureAirport;
     }
 
-    public void setDepartureAirport(Airport departureAirport) {
-        this.departureAirport = departureAirport;
+    @Autowired
+    @Qualifier("departureAirport")
+    public void setDepartureAirport(Airport airport) {
+        this.departureAirport = airport;
     }
 
     public Airport getArrivalAirport() {
         return arrivalAirport;
     }
 
+    @Autowired
+    @Qualifier("arrivalAirport")
     public void setArrivalAirport(Airport arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
     }
@@ -54,6 +63,7 @@ public class Flight extends Entity<Long> {
         return flightStatus;
     }
 
+    @Autowired
     public void setFlightStatus(FlightStatus flightStatus) {
         this.flightStatus = flightStatus;
     }

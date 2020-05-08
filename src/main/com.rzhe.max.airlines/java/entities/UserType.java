@@ -1,6 +1,8 @@
 package entities;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserType extends Entity<Long> {
 
     private String name;

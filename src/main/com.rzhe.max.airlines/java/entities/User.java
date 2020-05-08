@@ -1,5 +1,9 @@
 package entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class User extends Entity<Long> {
     private String firstName;
     private String lastName;
@@ -43,6 +47,7 @@ public class User extends Entity<Long> {
         return userType;
     }
 
+    @Autowired
     public void setUserType(UserType userType) {
         this.userType = userType;
     }

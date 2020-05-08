@@ -1,7 +1,11 @@
 package entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 
+@Component("crewMan")
 public class CrewMan extends Entity<Long> {
     private String firstName;
     private String lastName;
@@ -36,6 +40,7 @@ public class CrewMan extends Entity<Long> {
         return profession;
     }
 
+    @Autowired
     public void setProfession(Profession profession) {
         this.profession = profession;
     }

@@ -1,6 +1,9 @@
 package entities;
 
-public class Airport extends Entity<Long> {
+import org.springframework.stereotype.Component;
+
+@Component("airport")
+public abstract  class Airport extends Entity<Long> {
     private String city;
     private String airportCode;
 
