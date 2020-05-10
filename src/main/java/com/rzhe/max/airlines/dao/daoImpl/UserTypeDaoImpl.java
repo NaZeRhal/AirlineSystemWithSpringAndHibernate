@@ -1,56 +1,70 @@
 package com.rzhe.max.airlines.dao.daoImpl;
 
-import com.rzhe.max.airlines.dao.DaoException;
 import com.rzhe.max.airlines.dao.UserTypeDao;
 import com.rzhe.max.airlines.entities.UserType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
+@Transactional
+@Repository("userTypeDao")
 public class UserTypeDaoImpl implements UserTypeDao {
 
-//    @Override
-//    public String getSelectQuery() {
-//        return "SELECT id, user_type_name FROM user_type";
-//    }
-//
-//    @Override
-//    public String getCreateQuery() {
-//        return "INSERT INTO user_type (user_type_name) VALUES (?)";
-//    }
-//
-//    @Override
-//    public String getUpdateQuery() {
-//        return "UPDATE user_type SET user_type_name = ?";
-//    }
-//
-//    @Override
-//    public String getDeleteQuery() {
-//        return "DELETE FROM user_type WHERE id = ?";
-//    }
+    private static final Log logger = LogFactory.getLog(UserTypeDaoImpl.class);
+    private SessionFactory sessionFactory;
 
+    @Transactional(readOnly = true)
+    @Override
+    public UserType findById(Long id) {
+        return (UserType) sessionFactory.getCurrentSession()
+                .getNamedQuery("UserType.findById")
+                .setParameter("id", id)
+                .uniqueResult();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<UserType> findAll() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from UserType u")
+                .list();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<UserType> findAllWithUsers() {
+        return sessionFactory.getCurrentSession()
+                .getNamedQuery("UserType.findAllWithUsers")
+                .list();
+    }
 
     @Override
-    public UserType findById(Long id) throws DaoException {
+    public Long create(UserType entity) {
         return null;
     }
 
     @Override
-    public List<UserType> findAll() throws DaoException {
-        return null;
-    }
-
-    @Override
-    public Long create(UserType entity) throws DaoException {
-        return null;
-    }
-
-    @Override
-    public void update(UserType entity) throws DaoException {
+    public void update(UserType entity) {
 
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(Long id) {
 
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    @Resource(name = "sessionFactory")
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

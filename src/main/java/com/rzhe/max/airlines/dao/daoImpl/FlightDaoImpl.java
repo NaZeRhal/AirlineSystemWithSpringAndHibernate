@@ -36,32 +36,32 @@ public class FlightDaoImpl implements FlightDao {
 
 
     @Override
-    public List<Flight> findByFlightStatus(FlightStatus flightStatus) throws DaoException {
+    public List<Flight> findByFlightStatus(FlightStatus flightStatus) {
         return null;
     }
 
     @Override
-    public Flight findById(Long id) throws DaoException {
+    public Flight findById(Long id)  {
         return null;
     }
 
     @Override
-    public List<Flight> findAll() throws DaoException {
+    public List<Flight> findAll()  {
         return null;
     }
 
     @Override
-    public Long create(Flight entity) throws DaoException {
+    public Long create(Flight entity)  {
         return null;
     }
 
     @Override
-    public void update(Flight entity) throws DaoException {
+    public void update(Flight entity)  {
 
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(Long id) {
 
     }
 }

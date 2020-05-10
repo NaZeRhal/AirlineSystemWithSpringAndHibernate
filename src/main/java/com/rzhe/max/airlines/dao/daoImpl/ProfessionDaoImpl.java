@@ -22,13 +22,26 @@ public class ProfessionDaoImpl implements ProfessionDao {
     @Transactional(readOnly = true)
     @Override
     public Profession findById(Long id) {
-        return null;
+        return (Profession) sessionFactory.getCurrentSession()
+                .getNamedQuery("Profession.findById")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Profession> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Profession p").list();
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Profession p")
+                .list();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Profession> findAllWithCrewMen() {
+        return sessionFactory.getCurrentSession()
+                .getNamedQuery("Profession.findAllWithCrewMen")
+                .list();
     }
 
     @Override

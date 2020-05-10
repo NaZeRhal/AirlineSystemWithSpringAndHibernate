@@ -7,6 +7,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "professions")
+@NamedQueries({
+        @NamedQuery(name = "Profession.findById",
+                query = "select distinct p from Profession p " +
+                        "left join fetch p.crewManSet c where p.id = :id"),
+        @NamedQuery(name = "Profession.findAllWithCrewMen",
+                query = "select distinct p from Profession p" +
+                        " left join fetch p.crewManSet c")
+})
 public class Profession implements Serializable {
     private Long id;
     private String name;

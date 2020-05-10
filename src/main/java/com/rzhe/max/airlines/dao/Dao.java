@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface Dao<T, PK extends Serializable> {
-    T findById(PK id) throws DaoException;
+    T findById(PK id);
 
-    List<T> findAll() throws DaoException;
+    List<T> findAll();
 
-    PK create(T entity) throws DaoException;
+    PK create(T entity);
 
-    void update(T entity) throws DaoException;
+    void update(T entity);
 
-    void delete(PK id) throws DaoException;
+    void delete(PK id);
 
 }

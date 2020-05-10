@@ -7,6 +7,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user_type")
+@NamedQueries({
+        @NamedQuery(name = "UserType.findById",
+                query = "select distinct u from UserType u " +
+                        "left join fetch u.userSet us where u.id = :id"),
+        @NamedQuery(name = "UserType.findAllWithUsers",
+                query = "select distinct u from UserType u " +
+                        "left join fetch u.userSet us ")
+})
 public class UserType implements Serializable {
     private Long id;
     private String name;
