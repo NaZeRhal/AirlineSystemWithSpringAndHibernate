@@ -1,19 +1,16 @@
-package entities;
+package com.rzhe.max.airlines.entities;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Component("flight")
-public class Flight extends Entity<Long> {
+public class Flight implements Serializable {
     private String flightCode;
     private Airport departureAirport;
     private Airport arrivalAirport;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private FlightStatus flightStatus;
+//    private List<CrewMan> crewManList;
 
     public String getFlightCode() {
         return flightCode;
@@ -27,8 +24,6 @@ public class Flight extends Entity<Long> {
         return departureAirport;
     }
 
-    @Autowired
-    @Qualifier("departureAirport")
     public void setDepartureAirport(Airport airport) {
         this.departureAirport = airport;
     }
@@ -37,8 +32,6 @@ public class Flight extends Entity<Long> {
         return arrivalAirport;
     }
 
-    @Autowired
-    @Qualifier("arrivalAirport")
     public void setArrivalAirport(Airport arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
     }
@@ -63,10 +56,31 @@ public class Flight extends Entity<Long> {
         return flightStatus;
     }
 
-    @Autowired
     public void setFlightStatus(FlightStatus flightStatus) {
         this.flightStatus = flightStatus;
     }
+
+//    public List<CrewMan> getCrewManList() {
+//        return crewManList;
+//    }
+//
+//    public void setCrewManList(List<CrewMan> crewManList) {
+//        this.crewManList = crewManList;
+//    }
+//
+//    public boolean addCrewMan(CrewMan crewMan) {
+//        if (crewManList == null) {
+//            crewManList = new ArrayList<>();
+//            crewManList.add(crewMan);
+//            return true;
+//        } else {
+//            if (crewManList.contains(crewMan)) {
+//                return false;
+//            }
+//        }
+//        crewManList.add(crewMan);
+//        return true;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -94,17 +108,6 @@ public class Flight extends Entity<Long> {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Flight{" +
-                "id='" + this.getId() + '\'' +
-                ", flightCode='" + flightCode + '\'' +
-                ", departureAirport=" + departureAirport +
-                ", arrivalAirport=" + arrivalAirport +
-                ", departureTime=" + departureTime +
-                ", arrivalTime=" + arrivalTime +
-                ", statusId=" + flightStatus +
-                '}';
-    }
+
 }
 

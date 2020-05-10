@@ -1,16 +1,30 @@
-package entities;
+package com.rzhe.max.airlines.entities;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.io.Serializable;
 
-@Component
-public class User extends Entity<Long> {
+@Entity
+@Table(name = "user")
+public class User implements Serializable {
+    private Long id;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
     private UserType userType;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -19,6 +33,7 @@ public class User extends Entity<Long> {
         this.firstName = firstName;
     }
 
+    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -27,6 +42,7 @@ public class User extends Entity<Long> {
         this.lastName = lastName;
     }
 
+    @Column(name = "login")
     public String getLogin() {
         return login;
     }
@@ -35,6 +51,7 @@ public class User extends Entity<Long> {
         this.login = login;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -43,44 +60,21 @@ public class User extends Entity<Long> {
         this.password = password;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "user_type_id")
     public UserType getUserType() {
         return userType;
     }
 
-    @Autowired
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (!getFirstName().equals(user.getFirstName())) return false;
-        if (!getLastName().equals(user.getLastName())) return false;
-        if (!getLogin().equals(user.getLogin())) return false;
-        if (!getPassword().equals(user.getPassword())) return false;
-        return getUserType().equals(user.getUserType());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getFirstName().hashCode();
-        result = 31 * result + getLastName().hashCode();
-        result = 31 * result + getLogin().hashCode();
-        result = 31 * result + getPassword().hashCode();
-        result = 31 * result + getUserType().hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "User{" +
-                "id='" + this.getId() + '\'' +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
