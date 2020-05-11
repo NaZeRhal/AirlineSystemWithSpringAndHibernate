@@ -1,17 +1,37 @@
 package com.rzhe.max.airlines.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "flights")
 public class Flight implements Serializable {
+    private Long id;
     private String flightCode;
     private Airport departureAirport;
     private Airport arrivalAirport;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private FlightStatus flightStatus;
+
+//    private List<Airport> airports = new ArrayList<>();
 //    private List<CrewMan> crewManList;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column(name = "flight_code")
     public String getFlightCode() {
         return flightCode;
     }
@@ -20,6 +40,8 @@ public class Flight implements Serializable {
         this.flightCode = flightCode;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "departure_airport_id")
     public Airport getDepartureAirport() {
         return departureAirport;
     }
@@ -28,6 +50,8 @@ public class Flight implements Serializable {
         this.departureAirport = airport;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "arrival_airport_id")
     public Airport getArrivalAirport() {
         return arrivalAirport;
     }
@@ -36,6 +60,7 @@ public class Flight implements Serializable {
         this.arrivalAirport = arrivalAirport;
     }
 
+    @Column(name = "departure_time")
     public LocalDateTime getDepartureTime() {
         return departureTime;
     }
@@ -44,6 +69,7 @@ public class Flight implements Serializable {
         this.departureTime = departureTime;
     }
 
+    @Column(name = "arrival_time")
     public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
@@ -52,6 +78,8 @@ public class Flight implements Serializable {
         this.arrivalTime = arrivalTime;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "flight_status_id")
     public FlightStatus getFlightStatus() {
         return flightStatus;
     }
@@ -60,54 +88,30 @@ public class Flight implements Serializable {
         this.flightStatus = flightStatus;
     }
 
-//    public List<CrewMan> getCrewManList() {
-//        return crewManList;
+//    @ManyToMany
+//    public List<Airport> getAirports() {
+//        return airports;
 //    }
 //
-//    public void setCrewManList(List<CrewMan> crewManList) {
-//        this.crewManList = crewManList;
+//    public void setAirports(List<Airport> airports) {
+//        this.airports = airports;
 //    }
 //
-//    public boolean addCrewMan(CrewMan crewMan) {
-//        if (crewManList == null) {
-//            crewManList = new ArrayList<>();
-//            crewManList.add(crewMan);
-//            return true;
-//        } else {
-//            if (crewManList.contains(crewMan)) {
-//                return false;
-//            }
-//        }
-//        crewManList.add(crewMan);
-//        return true;
+//    public boolean addAirports(Airport departureAirport, Airport arrivalAirport) {
+//
 //    }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Flight)) return false;
-
-        Flight flight = (Flight) o;
-
-        if (!getFlightCode().equals(flight.getFlightCode())) return false;
-        if (!getDepartureAirport().equals(flight.getDepartureAirport())) return false;
-        if (!getArrivalAirport().equals(flight.getArrivalAirport())) return false;
-        if (!getDepartureTime().equals(flight.getDepartureTime())) return false;
-        if (!getArrivalTime().equals(flight.getArrivalTime())) return false;
-        return getFlightStatus().equals(flight.getFlightStatus());
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", flightCode='" + flightCode + '\'' +
+                ", departureAirport=" + departureAirport +
+                ", arrivalAirport=" + arrivalAirport +
+                ", departureTime=" + departureTime +
+                ", arrivalTime=" + arrivalTime +
+                ", flightStatus=" + flightStatus +
+                '}';
     }
-
-    @Override
-    public int hashCode() {
-        int result = getFlightCode().hashCode();
-        result = 31 * result + getDepartureAirport().hashCode();
-        result = 31 * result + getArrivalAirport().hashCode();
-        result = 31 * result + getDepartureTime().hashCode();
-        result = 31 * result + getArrivalTime().hashCode();
-        result = 31 * result + getFlightStatus().hashCode();
-        return result;
-    }
-
-
 }
 

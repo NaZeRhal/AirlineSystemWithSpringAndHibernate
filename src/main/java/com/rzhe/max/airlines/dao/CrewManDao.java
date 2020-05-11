@@ -5,13 +5,13 @@ import com.rzhe.max.airlines.entities.CrewMan;
 import java.util.List;
 
 public interface CrewManDao {
-    CrewMan findById(Long id) throws DaoException;
+    CrewMan findById(Long id);
 
-    List<CrewMan> findAll() throws DaoException;
+    List<CrewMan> findAll();
 
-    Long create(CrewMan entity) throws DaoException;
+    Long create(CrewMan entity);
 
-    void update(CrewMan entity) throws DaoException;
+    void update(CrewMan entity);
 
-    void delete(Long id) throws DaoException;
+    void delete(Long id);
 }

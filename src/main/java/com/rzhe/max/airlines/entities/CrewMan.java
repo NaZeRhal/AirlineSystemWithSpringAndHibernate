@@ -6,6 +6,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "crew_man")
+@NamedQueries({
+        @NamedQuery(name = "CrewMan.findById",
+                query = "select c from CrewMan c where c.id = :id")
+})
 public class CrewMan implements Serializable {
     private Long id;
     private String firstName;

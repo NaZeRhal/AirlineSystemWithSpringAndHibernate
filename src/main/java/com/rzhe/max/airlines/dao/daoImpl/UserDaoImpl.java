@@ -1,7 +1,6 @@
 package com.rzhe.max.airlines.dao.daoImpl;
 
 
-import com.rzhe.max.airlines.dao.DaoException;
 import com.rzhe.max.airlines.dao.UserDao;
 import com.rzhe.max.airlines.entities.User;
 import org.apache.commons.logging.Log;
@@ -21,36 +20,33 @@ public class UserDaoImpl implements UserDao {
     private static final Log logger = LogFactory.getLog(UserDaoImpl.class);
     private SessionFactory sessionFactory;
 
-    @Override
     public User findByLogin(String login){
         return null;
     }
 
     @Transactional(readOnly = true)
-    @Override
     public User findById(Long id)  {
-        return null;
+        return (User) sessionFactory.getCurrentSession()
+                .getNamedQuery("User.findById")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Transactional(readOnly = true)
-    @Override
     public List<User> findAll()  {
         return sessionFactory.getCurrentSession()
                 .createQuery("from User u")
                 .list();
     }
 
-    @Override
-    public Long create(User entity)  {
+    public Long create(User user)  {
         return null;
     }
 
-    @Override
-    public void update(User entity)  {
+    public void update(User user)  {
 
     }
 
-    @Override
     public void delete(Long id)  {
 
     }

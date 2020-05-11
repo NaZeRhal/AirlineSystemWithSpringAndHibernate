@@ -20,7 +20,6 @@ public class ProfessionDaoImpl implements ProfessionDao {
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
-    @Override
     public Profession findById(Long id) {
         return (Profession) sessionFactory.getCurrentSession()
                 .getNamedQuery("Profession.findById")
@@ -29,7 +28,6 @@ public class ProfessionDaoImpl implements ProfessionDao {
     }
 
     @Transactional(readOnly = true)
-    @Override
     public List<Profession> findAll() {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Profession p")
@@ -37,24 +35,20 @@ public class ProfessionDaoImpl implements ProfessionDao {
     }
 
     @Transactional(readOnly = true)
-    @Override
     public List<Profession> findAllWithCrewMen() {
         return sessionFactory.getCurrentSession()
                 .getNamedQuery("Profession.findAllWithCrewMen")
                 .list();
     }
 
-    @Override
     public Long create(Profession entity) {
         return null;
     }
 
-    @Override
     public void update(Profession entity) {
 
     }
 
-    @Override
     public void delete(Long id) {
 
     }

@@ -19,28 +19,28 @@ public class CrewManDaoImpl implements CrewManDao {
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
-    @Override
     public CrewMan findById(Long id) {
-        return null;
+        return (CrewMan) sessionFactory.getCurrentSession()
+                .getNamedQuery("CrewMan.findById")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Transactional(readOnly = true)
-    @Override
     public List<CrewMan> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from CrewMan c").list();
+        return sessionFactory.getCurrentSession()
+                .createQuery("from CrewMan c")
+                .list();
     }
 
-    @Override
     public Long create(CrewMan entity) {
         return null;
     }
 
-    @Override
     public void update(CrewMan entity) {
 
     }
 
-    @Override
     public void delete(Long id) {
 
     }

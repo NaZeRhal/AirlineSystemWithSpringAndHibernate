@@ -2,13 +2,20 @@ package com.rzhe.max.airlines.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "airport")
+//@NamedQueries({
+//        @NamedQuery(name = "Airport.findById")
+//})
 public class Airport implements Serializable {
     private Long id;
     private String city;
     private String airportCode;
+    private Set<Flight> flights = new HashSet<>();
+//    private Set<Flight> arrivals = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +45,25 @@ public class Airport implements Serializable {
     public void setAirportCode(String airportCode) {
         this.airportCode = airportCode;
     }
+
+//    @OneToMany(mappedBy = "airports", cascade = CascadeType.ALL,
+//            orphanRemoval = true, fetch = FetchType.EAGER)
+//    public Set<Flight> getFlights() {
+//        return flights;
+//    }
+//
+//    public void setFlights(Set<Flight> flights) {
+//        this.flights = flights;
+//    }
+//
+//    public boolean addDeparture(Flight flight) {
+//        flight.setDepartureAirport(this);
+//        return getFlights().add(flight);
+//    }
+//
+//    public void removeDeparture(Flight flight) {
+//        getFlights().remove(flight);
+//    }
 
     @Override
     public String toString() {

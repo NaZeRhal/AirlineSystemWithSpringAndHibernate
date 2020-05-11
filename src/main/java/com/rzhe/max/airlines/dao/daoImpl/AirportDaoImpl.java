@@ -20,33 +20,31 @@ public class AirportDaoImpl implements AirportDao {
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
-    @Override
     public Airport findByAirportCode(String airportCode) {
         return null;
     }
 
     @Transactional(readOnly = true)
-    @Override
     public Airport findById(Long id) {
         return null;
     }
 
     @Transactional(readOnly = true)
     public List<Airport> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("select a from Airport a").list();
+        return sessionFactory.getCurrentSession()
+                .createQuery("select a from Airport a")
+                .list();
     }
 
-    @Override
+
     public Long create(Airport entity) {
         return null;
     }
 
-    @Override
     public void update(Airport entity) {
 
     }
 
-    @Override
     public void delete(Long id) {
 
     }

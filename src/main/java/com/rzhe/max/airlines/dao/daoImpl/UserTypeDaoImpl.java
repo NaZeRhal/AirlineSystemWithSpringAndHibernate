@@ -20,7 +20,6 @@ public class UserTypeDaoImpl implements UserTypeDao {
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
-    @Override
     public UserType findById(Long id) {
         return (UserType) sessionFactory.getCurrentSession()
                 .getNamedQuery("UserType.findById")
@@ -37,24 +36,20 @@ public class UserTypeDaoImpl implements UserTypeDao {
     }
 
     @Transactional(readOnly = true)
-    @Override
     public List<UserType> findAllWithUsers() {
         return sessionFactory.getCurrentSession()
                 .getNamedQuery("UserType.findAllWithUsers")
                 .list();
     }
 
-    @Override
     public Long create(UserType entity) {
         return null;
     }
 
-    @Override
     public void update(UserType entity) {
 
     }
 
-    @Override
     public void delete(Long id) {
 
     }
