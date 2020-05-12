@@ -42,16 +42,16 @@ public class UserTypeDaoImpl implements UserTypeDao {
                 .list();
     }
 
-    public Long create(UserType entity) {
-        return null;
+    public UserType save(UserType userType) {
+        sessionFactory.getCurrentSession().saveOrUpdate(userType);
+        logger.info("UserType saved with id: " + userType.getId());
+        return userType;
     }
 
-    public void update(UserType entity) {
 
-    }
-
-    public void delete(Long id) {
-
+    public void delete(UserType userType) {
+        sessionFactory.getCurrentSession().delete(userType);
+        logger.info("UserType deleted with id: " + userType.getId());
     }
 
     public SessionFactory getSessionFactory() {

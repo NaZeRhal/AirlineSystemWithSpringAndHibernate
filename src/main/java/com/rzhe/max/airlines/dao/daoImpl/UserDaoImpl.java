@@ -20,12 +20,15 @@ public class UserDaoImpl implements UserDao {
     private static final Log logger = LogFactory.getLog(UserDaoImpl.class);
     private SessionFactory sessionFactory;
 
-    public User findByLogin(String login){
-        return null;
+    public User findByLogin(String login) {
+        return (User) sessionFactory.getCurrentSession()
+                .getNamedQuery("User.findByLogin")
+                .setParameter("login", login)
+                .uniqueResult();
     }
 
     @Transactional(readOnly = true)
-    public User findById(Long id)  {
+    public User findById(Long id) {
         return (User) sessionFactory.getCurrentSession()
                 .getNamedQuery("User.findById")
                 .setParameter("id", id)
@@ -33,22 +36,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Transactional(readOnly = true)
-    public List<User> findAll()  {
+    public List<User> findAll() {
         return sessionFactory.getCurrentSession()
                 .createQuery("from User u")
                 .list();
     }
 
-    public Long create(User user)  {
-        return null;
+    public User save(User user) {
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
+        logger.info("User saved with id: " + user.getId());
+        return user;
     }
 
-    public void update(User user)  {
-
-    }
-
-    public void delete(Long id)  {
-
+    public void delete(User user) {
+        sessionFactory.getCurrentSession().delete(user);
+        logger.info("User deleted with id: " + user.getId());
     }
 
     public SessionFactory getSessionFactory() {

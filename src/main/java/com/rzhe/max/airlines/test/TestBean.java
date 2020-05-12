@@ -18,20 +18,20 @@ public class TestBean {
     public static void main(String[] args) {
         GenericApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         AirportDao airportDao = context.getBean("airportDao", AirportDao.class);
-        ProfessionDao professionDao = context.getBean("professionDao", ProfessionDao.class);
-        CrewManDao crewManDao = context.getBean("crewManDao", CrewManDao.class);
-        UserTypeDao userTypeDao = context.getBean("userTypeDao", UserTypeDao.class);
-        UserDao userDao = context.getBean("userDao", UserDao.class);
-        FlightDao flightDao = context.getBean("flightDao", FlightDao.class);
+//        ProfessionDao professionDao = context.getBean("professionDao", ProfessionDao.class);
+//        CrewManDao crewManDao = context.getBean("crewManDao", CrewManDao.class);
+//        UserTypeDao userTypeDao = context.getBean("userTypeDao", UserTypeDao.class);
+//        UserDao userDao = context.getBean("userDao", UserDao.class);
+//        FlightDao flightDao = context.getBean("flightDao", FlightDao.class);
 
-//        List<Airport> airportList = airportDao.findAll();
-//        airportList.forEach(System.out::println);
+        List<Airport> airportList = airportDao.findAll();
+        airportList.forEach(System.out::println);
 //
-//        List<Profession> professions = professionDao.findAllWithCrewMen();
+//        List<Profession> professions = professionDao.findAllWithFlights();
 //        professions.forEach(i -> {
 //            System.out.println(i);
-//            if (i.getCrewManSet() != null) {
-//                i.getCrewManSet().forEach(System.out::println);
+//            if (i.getCrewMEN() != null) {
+//                i.getCrewMEN().forEach(System.out::println);
 //            }
 //        });
 //

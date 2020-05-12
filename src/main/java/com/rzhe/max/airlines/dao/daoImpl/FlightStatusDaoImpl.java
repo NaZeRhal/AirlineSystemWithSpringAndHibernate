@@ -13,7 +13,7 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 @Transactional
-@Repository("flightStatus")
+@Repository("flightStatusDao")
 public class FlightStatusDaoImpl implements FlightStatusDao {
     private static final Log logger = LogFactory.getLog(FlightStatusDaoImpl.class);
     private SessionFactory sessionFactory;
@@ -34,22 +34,22 @@ public class FlightStatusDaoImpl implements FlightStatusDao {
     }
 
     @Transactional(readOnly = true)
-    public List<FlightStatus> findAllWithCrewMen() {
+    public List<FlightStatus> findAllWithFlights() {
         return sessionFactory.getCurrentSession()
                 .getNamedQuery("FlightStatus.findAllWithFlights")
                 .list();
     }
 
-    public Long create(FlightStatus profession) {
-        return null;
+    public FlightStatus save(FlightStatus flightStatus) {
+        sessionFactory.getCurrentSession().saveOrUpdate(flightStatus);
+        logger.info("FlightStatus saved with id: " + flightStatus.getId());
+        return flightStatus;
     }
 
-    public void update(FlightStatus profession) {
 
-    }
-
-    public void delete(Long id) {
-
+    public void delete(FlightStatus flightStatus) {
+        sessionFactory.getCurrentSession().delete(flightStatus);
+        logger.info("FlightStatus deleted with id: " + flightStatus.getId());
     }
 
     public SessionFactory getSessionFactory() {

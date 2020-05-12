@@ -41,16 +41,15 @@ public class ProfessionDaoImpl implements ProfessionDao {
                 .list();
     }
 
-    public Long create(Profession entity) {
-        return null;
+    public Profession save(Profession profession) {
+        sessionFactory.getCurrentSession().saveOrUpdate(profession);
+        logger.info("Profession saved with id: " + profession.getId());
+        return profession;
     }
 
-    public void update(Profession entity) {
-
-    }
-
-    public void delete(Long id) {
-
+    public void delete(Profession profession) {
+        sessionFactory.getCurrentSession().delete(profession);
+        logger.info("Profession deleted with id: " + profession.getId());
     }
 
     public SessionFactory getSessionFactory() {

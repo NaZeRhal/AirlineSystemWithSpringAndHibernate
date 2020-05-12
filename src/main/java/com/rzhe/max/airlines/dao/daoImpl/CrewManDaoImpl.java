@@ -33,16 +33,16 @@ public class CrewManDaoImpl implements CrewManDao {
                 .list();
     }
 
-    public Long create(CrewMan entity) {
-        return null;
+    public CrewMan save(CrewMan crewMan) {
+        sessionFactory.getCurrentSession().saveOrUpdate(crewMan);
+        logger.info("CrewMan saved with id: " + crewMan.getId());
+        return crewMan;
     }
 
-    public void update(CrewMan entity) {
 
-    }
-
-    public void delete(Long id) {
-
+    public void delete(CrewMan crewMan) {
+        sessionFactory.getCurrentSession().delete(crewMan);
+        logger.info("CrewMan deleted with id: " + crewMan.getId());
     }
 
     public SessionFactory getSessionFactory() {

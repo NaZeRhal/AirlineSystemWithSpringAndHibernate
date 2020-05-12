@@ -10,15 +10,15 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "Profession.findById",
                 query = "select distinct p from Profession p " +
-                        "left join fetch p.crewManSet c where p.id = :id"),
+                        "left join fetch p.crewMEN c where p.id = :id"),
         @NamedQuery(name = "Profession.findAllWithCrewMen",
                 query = "select distinct p from Profession p" +
-                        " left join fetch p.crewManSet c")
+                        " left join fetch p.crewMEN c")
 })
 public class Profession implements Serializable {
     private Long id;
     private String name;
-    private Set<CrewMan> crewManSet = new HashSet<>();
+    private Set<CrewMan> crewMEN = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,21 +42,21 @@ public class Profession implements Serializable {
 
     @OneToMany(mappedBy = "profession", cascade = CascadeType.ALL,
             orphanRemoval = true)
-    public Set<CrewMan> getCrewManSet() {
-        return crewManSet;
+    public Set<CrewMan> getCrewMEN() {
+        return crewMEN;
     }
 
-    public void setCrewManSet(Set<CrewMan> crewManSet) {
-        this.crewManSet = crewManSet;
+    public void setCrewMEN(Set<CrewMan> crewMEN) {
+        this.crewMEN = crewMEN;
     }
 
     public boolean addCrewMan(CrewMan crewMan) {
         crewMan.setProfession(this);
-        return getCrewManSet().add(crewMan);
+        return getCrewMEN().add(crewMan);
     }
 
     public void removeCrewMan(CrewMan crewMan) {
-        getCrewManSet().remove(crewMan);
+        getCrewMEN().remove(crewMan);
     }
 
     @Override

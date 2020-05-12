@@ -9,11 +9,9 @@ public interface FlightStatusDao {
 
     List<FlightStatus> findAll();
 
-    List<FlightStatus> findAllWithCrewMen();
+    List<FlightStatus> findAllWithFlights();
 
-    Long create(FlightStatus profession);
+    FlightStatus save(FlightStatus profession);
 
-    void update(FlightStatus profession);
-
-    void delete(Long id);
+    void delete(FlightStatus flightStatus);
 }

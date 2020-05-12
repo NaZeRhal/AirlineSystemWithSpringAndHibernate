@@ -26,7 +26,10 @@ public class AirportDaoImpl implements AirportDao {
 
     @Transactional(readOnly = true)
     public Airport findById(Long id) {
-        return null;
+        return (Airport) sessionFactory.getCurrentSession()
+                .createQuery("from Airport a where a.id = :id")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Transactional(readOnly = true)
@@ -37,16 +40,19 @@ public class AirportDaoImpl implements AirportDao {
     }
 
 
-    public Long create(Airport entity) {
-        return null;
+    public Airport save(Airport airport) {
+        sessionFactory.getCurrentSession().saveOrUpdate(airport);
+        logger.info("Airport saved with id: " + airport.getId());
+        return airport;
     }
 
-    public void update(Airport entity) {
+//    public void update(Airport airport) {
+//
+//    }
 
-    }
-
-    public void delete(Long id) {
-
+    public void delete(Airport airport) {
+        sessionFactory.getCurrentSession().delete(airport);
+        logger.info("Airport deleted with id: " + airport.getId());
     }
 
     public SessionFactory getSessionFactory() {

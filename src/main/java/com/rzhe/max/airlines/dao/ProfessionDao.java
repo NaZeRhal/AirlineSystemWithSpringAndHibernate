@@ -11,9 +11,7 @@ public interface ProfessionDao {
 
     List<Profession> findAllWithCrewMen();
 
-    Long create(Profession profession);
+    Profession save(Profession profession);
 
-    void update(Profession profession);
-
-    void delete(Long id);
+    void delete(Profession profession);
 }

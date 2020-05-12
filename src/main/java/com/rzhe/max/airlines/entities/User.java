@@ -7,7 +7,9 @@ import java.io.Serializable;
 @Table(name = "user")
 @NamedQueries({
         @NamedQuery(name = "User.findById",
-                query = "select u from User u where u.id = :id")
+                query = "select u from User u where u.id = :id"),
+        @NamedQuery(name = "User.findByLogin",
+                query = "select u from User u where u.login = :login")
 })
 public class User implements Serializable {
     private Long id;

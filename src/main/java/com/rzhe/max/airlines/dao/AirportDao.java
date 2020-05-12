@@ -9,11 +9,11 @@ public interface AirportDao {
 
     List<Airport> findAll();
 
-    Long create(Airport airport);
+    Airport save(Airport airport);
 
-    void update(Airport airport);
+//    void update(Airport airport);
 
-    void delete(Long id);
+    void delete(Airport airport);
 
     Airport findByAirportCode(String airportCode);
 }

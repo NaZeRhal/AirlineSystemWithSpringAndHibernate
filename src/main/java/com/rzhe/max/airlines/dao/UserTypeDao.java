@@ -11,9 +11,7 @@ public interface UserTypeDao {
 
     List<UserType> findAllWithUsers();
 
-    Long create(UserType userType);
+    UserType save(UserType userType);
 
-    void update(UserType userType);
-
-    void delete(Long id);
+    void delete(UserType userType);
 }

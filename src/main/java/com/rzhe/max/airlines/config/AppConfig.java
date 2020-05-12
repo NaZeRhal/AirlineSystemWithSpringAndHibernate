@@ -49,7 +49,7 @@ public class AppConfig {
 //        try {
 //            EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
 //            return dbBuilder.setType(EmbeddedDatabaseType.H2)
-//                    .addScripts("classpath:sql/schema.sql", "classpath:sql/com.rzhe.max.airlines.test-data.sql").build();
+//                    .addScripts("classpath:testDB/schema.testDB", "classpath:testDB/com.rzhe.max.airlines.test-data.testDB").build();
 //        } catch (Exception e) {
 //            logger.error("Embedded DataSource bean cannot be created!", e);
 //            return null;

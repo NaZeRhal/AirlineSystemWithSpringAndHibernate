@@ -3,11 +3,13 @@ package com.rzhe.max.airlines.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "flights")
+@NamedQueries({
+        @NamedQuery(name = "Flight.findById",
+                query = "select f from Flight f where f.id = :id")
+})
 public class Flight implements Serializable {
     private Long id;
     private String flightCode;

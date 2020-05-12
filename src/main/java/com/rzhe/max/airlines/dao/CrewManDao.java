@@ -9,9 +9,7 @@ public interface CrewManDao {
 
     List<CrewMan> findAll();
 
-    Long create(CrewMan entity);
+    CrewMan save(CrewMan crewMan);
 
-    void update(CrewMan entity);
-
-    void delete(Long id);
+    void delete(CrewMan crewMan);
 }

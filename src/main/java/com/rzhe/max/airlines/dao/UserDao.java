@@ -9,11 +9,9 @@ public interface UserDao {
 
     List<User> findAll();
 
-    Long create(User user);
+    User save(User user);
 
-    void update(User user);
-
-    void delete(Long id);
+    void delete(User user);
 
     User findByLogin(String login);
 }

@@ -2,7 +2,6 @@ package com.rzhe.max.airlines.dao.daoImpl;
 
 import com.rzhe.max.airlines.dao.FlightDao;
 import com.rzhe.max.airlines.entities.Flight;
-import com.rzhe.max.airlines.entities.FlightStatus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -20,32 +19,29 @@ public class FlightDaoImpl implements FlightDao {
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
-    public Flight findById(Long id)  {
-        return null;
+    public Flight findById(Long id) {
+        return (Flight) sessionFactory.getCurrentSession()
+                .getNamedQuery("Flight.findById")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Transactional(readOnly = true)
-    public List<Flight> findAll()  {
+    public List<Flight> findAll() {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Flight f")
                 .list();
     }
 
-    @Transactional(readOnly = true)
-    public List<Flight> findByFlightStatus(FlightStatus flightStatus) {
-        return null;
+    public Flight save(Flight flight) {
+        sessionFactory.getCurrentSession().saveOrUpdate(flight);
+        logger.info("Flight saved with id: " + flight.getId());
+        return flight;
     }
 
-    public Long create(Flight entity)  {
-        return null;
-    }
-
-    public void update(Flight entity)  {
-
-    }
-
-    public void delete(Long id) {
-
+    public void delete(Flight flight) {
+        sessionFactory.getCurrentSession().delete(flight);
+        logger.info("Flight deleted with id: " + flight.getId());
     }
 
     public SessionFactory getSessionFactory() {
