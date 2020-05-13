@@ -9,6 +9,8 @@ public interface FlightDao {
 
     List<Flight> findAll();
 
+    List<Flight> findAllWithCrewMen();
+
     Flight save(Flight flight);
 
     void delete(Flight flight);

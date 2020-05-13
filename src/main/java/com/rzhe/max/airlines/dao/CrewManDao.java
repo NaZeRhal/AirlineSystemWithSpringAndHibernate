@@ -9,6 +9,8 @@ public interface CrewManDao {
 
     List<CrewMan> findAll();
 
+    List<CrewMan> findAllWithFlights();
+
     CrewMan save(CrewMan crewMan);
 
     void delete(CrewMan crewMan);

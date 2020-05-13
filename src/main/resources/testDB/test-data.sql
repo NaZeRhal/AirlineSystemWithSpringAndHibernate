@@ -39,3 +39,13 @@ INSERT INTO flights (id, flight_code, departure_airport_id, arrival_airport_id, 
 INSERT INTO flights (id, flight_code, departure_airport_id, arrival_airport_id, departure_time, arrival_time, flight_status_id) VALUES (2, 'MSRO3551', 1, 3, '2020-03-04 18:50:00', '2020-03-04 20:50:00', 2);
 INSERT INTO flights (id, flight_code, departure_airport_id, arrival_airport_id, departure_time, arrival_time, flight_status_id) VALUES (3, 'KRLE1780', 2, 4, '2020-03-02 11:50:00', '2020-03-02 13:50:00', 1);
 INSERT INTO flights (id, flight_code, departure_airport_id, arrival_airport_id, departure_time, arrival_time, flight_status_id) VALUES (4, 'VKVL9444', 3, 2, '2020-03-07 08:50:00', '2020-03-07 10:50:00', 3);
+
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (1, 1);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (1, 2);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (1, 3);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (2, 1);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (2, 5);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (3, 6);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (3, 3);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (4, 1);
+INSERT INTO flight_crewman (flight_id, crewman_id) VALUES (4, 2);

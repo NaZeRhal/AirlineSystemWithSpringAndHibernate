@@ -33,6 +33,14 @@ public class CrewManDaoImpl implements CrewManDao {
                 .list();
     }
 
+    @Transactional(readOnly = true)
+    public List<CrewMan> findAllWithFlights() {
+        return sessionFactory.getCurrentSession()
+                .getNamedQuery("CrewMan.findAllWithFlights")
+                .list();
+
+    }
+
     public CrewMan save(CrewMan crewMan) {
         sessionFactory.getCurrentSession().saveOrUpdate(crewMan);
         logger.info("CrewMan saved with id: " + crewMan.getId());

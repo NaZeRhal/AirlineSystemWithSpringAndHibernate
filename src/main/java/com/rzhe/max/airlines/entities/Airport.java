@@ -7,12 +7,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "airport")
-//@NamedQueries({
-//        @NamedQuery(name = "Airport.findById",
-//        query = "select a from Airport a " +
-//                "left join fetch a.departures ds, a.arrivals ar " +
-//                "where a.id = :id")
-//})
+@NamedQueries({
+        @NamedQuery(name = "Airport.findById",
+                query = "select distinct a from Airport a " +
+                        "left join fetch a.departures ds " +
+                        "left join fetch a.arrivals ar " +
+                        "where a.id = :id"),
+        @NamedQuery(name = "Airport.findAllWithFlights",
+                query = "select distinct a from Airport a " +
+                        "left join fetch a.departures ds " +
+                        "left join fetch a.arrivals ar")
+})
 public class Airport implements Serializable {
     private Long id;
     private String city;

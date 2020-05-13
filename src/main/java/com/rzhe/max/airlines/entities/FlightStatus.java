@@ -9,10 +9,10 @@ import java.util.Set;
 @Table(name = "flight_status")
 @NamedQueries({
         @NamedQuery(name = "FlightStatus.findById",
-                query = "select f from FlightStatus f " +
+                query = "select distinct f from FlightStatus f " +
                         "left join fetch f.flights fs where f.id = :id"),
         @NamedQuery(name = "FlightStatus.findAllWithFlights",
-                query = "select f from FlightStatus f " +
+                query = "select distinct f from FlightStatus f " +
                         "left join fetch f.flights fs")
 })
 public class FlightStatus implements Serializable {

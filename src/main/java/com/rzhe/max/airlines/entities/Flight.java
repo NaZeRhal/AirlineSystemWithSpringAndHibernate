@@ -3,12 +3,18 @@ package com.rzhe.max.airlines.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "flights")
 @NamedQueries({
         @NamedQuery(name = "Flight.findById",
-                query = "select f from Flight f where f.id = :id")
+                query = "select distinct f from Flight f " +
+                        "left join fetch f.crewManList c " +
+                        "where f.id = :id"),
+        @NamedQuery(name = "Flight.findAllWithCrewMen",
+                query = "select distinct f from Flight f " +
+                        "left join fetch f.crewManList c")
 })
 public class Flight implements Serializable {
     private Long id;
@@ -19,8 +25,8 @@ public class Flight implements Serializable {
     private LocalDateTime arrivalTime;
     private FlightStatus flightStatus;
 
-//    private List<Airport> airports = new ArrayList<>();
-//    private List<CrewMan> crewManList;
+    //    private List<Airport> airports = new ArrayList<>();
+    private Set<CrewMan> crewManList;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,18 +96,17 @@ public class Flight implements Serializable {
         this.flightStatus = flightStatus;
     }
 
-//    @ManyToMany
-//    public List<Airport> getAirports() {
-//        return airports;
-//    }
-//
-//    public void setAirports(List<Airport> airports) {
-//        this.airports = airports;
-//    }
-//
-//    public boolean addAirports(Airport departureAirport, Airport arrivalAirport) {
-//
-//    }
+    @ManyToMany
+    @JoinTable(name = "flight_crewman",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "crewman_id"))
+    public Set<CrewMan> getCrewManList() {
+        return crewManList;
+    }
+
+    public void setCrewManList(Set<CrewMan> crewManList) {
+        this.crewManList = crewManList;
+    }
 
     @Override
     public String toString() {

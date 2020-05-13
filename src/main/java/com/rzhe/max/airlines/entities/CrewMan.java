@@ -3,12 +3,19 @@ package com.rzhe.max.airlines.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "crew_man")
 @NamedQueries({
         @NamedQuery(name = "CrewMan.findById",
-                query = "select c from CrewMan c where c.id = :id")
+                query = "select distinct c from CrewMan c " +
+                        "left join fetch c.flights f " +
+                        "where c.id = :id"),
+        @NamedQuery(name = "CrewMan.findAllWithFlights",
+        query = "select distinct c from CrewMan c " +
+                "left join fetch c.flights f")
 })
 public class CrewMan implements Serializable {
     private Long id;
@@ -16,6 +23,8 @@ public class CrewMan implements Serializable {
     private String lastName;
     private LocalDate dateOfBirth;
     private Profession profession;
+
+    private Set<Flight> flights = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +72,18 @@ public class CrewMan implements Serializable {
 
     public void setProfession(Profession profession) {
         this.profession = profession;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "flight_crewman",
+            joinColumns = @JoinColumn(name = "crewman_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
     }
 
     @Override

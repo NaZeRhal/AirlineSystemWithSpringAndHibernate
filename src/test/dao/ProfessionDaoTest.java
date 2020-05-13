@@ -115,7 +115,7 @@ public class ProfessionDaoTest {
         {
             logger.info(profession.toString());
             if (profession.getCrewMEN() != null) {
-                profession.getCrewMEN().forEach(crewMan -> logger.info(crewMan.toString()));
+                profession.getCrewMEN().forEach(crewMan -> logger.info("\t" + crewMan.toString()));
             }
         });
     }

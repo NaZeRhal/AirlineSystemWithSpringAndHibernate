@@ -120,7 +120,7 @@ public class FlightStatusDaoTest {
         list.forEach(flightStatus -> {
             logger.info(flightStatus.toString());
             if (flightStatus.getFlights() != null) {
-                flightStatus.getFlights().forEach(flight -> logger.info(flight.toString()));
+                flightStatus.getFlights().forEach(flight -> logger.info("\t" + flight.toString()));
             }
         });
     }

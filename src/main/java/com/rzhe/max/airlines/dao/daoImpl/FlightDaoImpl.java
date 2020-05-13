@@ -33,6 +33,13 @@ public class FlightDaoImpl implements FlightDao {
                 .list();
     }
 
+    @Transactional(readOnly = true)
+    public List<Flight> findAllWithCrewMen() {
+        return sessionFactory.getCurrentSession()
+                .getNamedQuery("Flight.findAllWithCrewMen")
+                .list();
+    }
+
     public Flight save(Flight flight) {
         sessionFactory.getCurrentSession().saveOrUpdate(flight);
         logger.info("Flight saved with id: " + flight.getId());

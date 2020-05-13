@@ -39,6 +39,14 @@ public class FlightDaoTest {
     }
 
     @Test
+    public void testFindAllWithCrewMen() {
+        List<Flight> allWithCrewMen = flightDao.findAllWithCrewMen();
+        assertEquals(4, allWithCrewMen.size());
+        listFlightsWithCrewMen(allWithCrewMen);
+
+    }
+
+    @Test
     public void testFindById() {
         Flight flight = flightDao.findById(1L);
         assertNotNull(flight);
@@ -103,6 +111,16 @@ public class FlightDaoTest {
     private static void listFlights(List<Flight> list) {
         logger.info("-----Listing flights:");
         list.forEach(flight -> logger.info(flight.toString()));
+    }
+
+    private static void listFlightsWithCrewMen(List<Flight> list) {
+        logger.info("-----Listing flights:");
+        list.forEach(flight -> {
+            logger.info(flight.toString());
+            if (flight.getCrewManList() != null) {
+                flight.getCrewManList().forEach(crewMan -> logger.info(crewMan.toString()));
+            }
+        });
     }
 
 }

@@ -115,7 +115,7 @@ public class UserTypeDaoTest {
         list.forEach(userType -> {
             logger.info(userType.toString());
             if (userType.getUserSet() != null) {
-                userType.getUserSet().forEach(user -> logger.info(user.toString()));
+                userType.getUserSet().forEach(user -> logger.info("\t" + user.toString()));
             }
         });
     }

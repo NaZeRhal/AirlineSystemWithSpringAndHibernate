@@ -9,6 +9,8 @@ public interface AirportDao {
 
     List<Airport> findAll();
 
+    List<Airport> findAllWithFlights();
+
     Airport save(Airport airport);
 
     void delete(Airport airport);
