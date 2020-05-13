@@ -37,6 +37,23 @@ public class AirportDaoTest {
         listAirports(airports);
     }
 
+    @Test
+    public void testFindById() {
+        Airport airport = airportDao.findById(1L);
+        assertNotNull(airport);
+        logger.info(airport.toString());
+    }
+
+    @Test
+    public void testDelete() {
+        Airport airport = airportDao.findById(1L);
+        assertNotNull(airport);
+        airportDao.delete(airport);
+        List<Airport> all = airportDao.findAll();
+        assertEquals(3, all.size());
+        listAirports(all);
+    }
+
 
 
     @After

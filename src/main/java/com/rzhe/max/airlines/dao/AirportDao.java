@@ -11,8 +11,6 @@ public interface AirportDao {
 
     Airport save(Airport airport);
 
-//    void update(Airport airport);
-
     void delete(Airport airport);
 
     Airport findByAirportCode(String airportCode);

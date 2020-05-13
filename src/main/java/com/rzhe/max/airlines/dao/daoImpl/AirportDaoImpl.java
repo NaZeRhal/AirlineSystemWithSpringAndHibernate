@@ -46,10 +46,6 @@ public class AirportDaoImpl implements AirportDao {
         return airport;
     }
 
-//    public void update(Airport airport) {
-//
-//    }
-
     public void delete(Airport airport) {
         sessionFactory.getCurrentSession().delete(airport);
         logger.info("Airport deleted with id: " + airport.getId());
