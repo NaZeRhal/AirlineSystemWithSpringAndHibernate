@@ -46,14 +46,6 @@ public class AppConfig {
             logger.error("DataSource bean cannot be created!", e);
             return null;
         }
-//        try {
-//            EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
-//            return dbBuilder.setType(EmbeddedDatabaseType.H2)
-//                    .addScripts("classpath:testDB/schema.testDB", "classpath:testDB/com.rzhe.max.airlines.test-data.testDB").build();
-//        } catch (Exception e) {
-//            logger.error("Embedded DataSource bean cannot be created!", e);
-//            return null;
-//        }
     }
 
     private Properties hibernateProperties() {
