@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class AirportDaoTest {
-    private static Logger logger = LoggerFactory.getLogger(AirportDao.class);
+    private static Logger logger = LoggerFactory.getLogger(AirportDaoTest.class);
 
     private GenericApplicationContext context;
     private AirportDao airportDao;

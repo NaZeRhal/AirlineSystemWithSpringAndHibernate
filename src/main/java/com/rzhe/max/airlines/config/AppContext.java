@@ -21,26 +21,27 @@ import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:database.properties")
 @ComponentScan(basePackages = "com.rzhe.max.airlines")
 @EnableTransactionManagement
-public class AppConfig {
-    private static Logger logger = LoggerFactory.getLogger(AppConfig.class);
-    private Environment env;
+public class AppContext {
+    private static Logger logger = LoggerFactory.getLogger(AppContext.class);
+
+    private Environment environment;
 
     @Autowired
-    public void setEnv(Environment env) {
-        this.env = env;
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         try {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("spring.datasource.driverClassName")));
-            dataSource.setUrl(env.getProperty("spring.datasource.url"));
-            dataSource.setUsername(env.getProperty("spring.datasource.username"));
-            dataSource.setPassword(env.getProperty("spring.datasource.password"));
+            dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("jdbc.driverClassName")));
+            dataSource.setUrl(environment.getProperty("jdbc.url"));
+            dataSource.setUsername(environment.getProperty("jdbc.username"));
+            dataSource.setPassword(environment.getProperty("jdbc.password"));
             return dataSource;
         } catch (Exception e) {
             logger.error("DataSource bean cannot be created!", e);
@@ -50,13 +51,13 @@ public class AppConfig {
 
     private Properties hibernateProperties() {
         Properties hibernateProp = new Properties();
-        hibernateProp.put("hibernate.dialect", env.getProperty("spring.hibernate.dialect"));
-        hibernateProp.put("hibernate.format_sql", env.getProperty("spring.hibernate.format-sql"));
-        hibernateProp.put("hibernate.use_sql_comments", env.getProperty("spring.hibernate.use-sql-comments"));
-        hibernateProp.put("hibernate.show_sql", env.getProperty("spring.hibernate.show-sql"));
-        hibernateProp.put("hibernate.max_fetch_depth", env.getProperty("spring.hibernate.max-fetch-depth"));
-        hibernateProp.put("hibernate.jdbc.batch_size", env.getProperty("spring.hibernate.jdbc.batch-size"));
-        hibernateProp.put("hibernate.jdbc.fetch_size", env.getProperty("spring.hibernate.jdbc.fetch-size"));
+        hibernateProp.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        hibernateProp.put("hibernate.format_sql", environment.getProperty("hibernate.format-sql"));
+        hibernateProp.put("hibernate.use_sql_comments", environment.getProperty("hibernate.use-sql-comments"));
+        hibernateProp.put("hibernate.show_sql", environment.getProperty("hibernate.show-sql"));
+        hibernateProp.put("hibernate.max_fetch_depth", environment.getProperty("hibernate.max-fetch-depth"));
+        hibernateProp.put("hibernate.jdbc.batch_size", environment.getProperty("hibernate.jdbc.batch-size"));
+        hibernateProp.put("hibernate.jdbc.fetch_size", environment.getProperty("hibernate.jdbc.fetch-size"));
         return hibernateProp;
     }
 
