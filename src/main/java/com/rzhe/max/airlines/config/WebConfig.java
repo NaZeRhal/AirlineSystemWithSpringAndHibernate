@@ -21,8 +21,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/");
-//                .setCachePeriod(31556926);
+                .addResourceLocations("/")
+                .setCachePeriod(31556926);
     }
 
     //Объявляет распознаватель представлений типа
@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
-//        viewResolver.setRequestContextAttribute("requestContext");
+        viewResolver.setRequestContextAttribute("requestContext");
         return viewResolver;
     }
 
@@ -42,10 +42,10 @@ public class WebConfig implements WebMvcConfigurer {
     //Определяет простые автоматизированные
     //контроллеры, предварительно сконфигурированные с ответным кодом состояния
     //и/или представлением для воспроизведения тела ответа.
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/").setViewName("airports/list");
-//    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("airports/list");
+    }
 
     // <=> <mvc:default-servlet-handler/>
     //Активизирует обработчик статических ресурсов.
