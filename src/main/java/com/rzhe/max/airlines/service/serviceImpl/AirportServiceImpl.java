@@ -46,6 +46,12 @@ public class AirportServiceImpl implements AirportService {
 
     @Transactional
     @Override
+    public Airport update(Airport airport) {
+        return airportDao.update(airport);
+    }
+
+    @Transactional
+    @Override
     public void delete(Airport airport) {
         airportDao.delete(airport);
     }

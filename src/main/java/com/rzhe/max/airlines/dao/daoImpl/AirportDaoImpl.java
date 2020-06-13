@@ -51,8 +51,14 @@ public class AirportDaoImpl implements AirportDao {
     }
 
     public Airport save(Airport airport) {
-        sessionFactory.getCurrentSession().saveOrUpdate(airport);
+        sessionFactory.getCurrentSession().persist(airport);
         logger.info("Airport saved with id: " + airport.getId());
+        return airport;
+    }
+
+    public Airport update(Airport airport) {
+        sessionFactory.getCurrentSession().merge(airport);
+        logger.info("Airport updated with id: " + airport.getId());
         return airport;
     }
 

@@ -28,6 +28,7 @@
             <th>${airportCode}</th>
         </tr>
         <tr>
+            <form:hidden path="id"/>
             <td><form:input path="city"/></td>
             <td><form:input path="airportCode"/></td>
 <%--            <td><a href="/airport/delete/${airport.id}">${deleteButton}</a></td>--%>

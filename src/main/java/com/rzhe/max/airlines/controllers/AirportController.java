@@ -44,9 +44,15 @@ public class AirportController {
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("airport") Airport airport) {
-        logger.info("-----Saving of airport-----");
-        airportService.save(airport);
-        logger.info("Saved airport: " + airport.toString());
+        if (airport.getId() == null) {
+            logger.info("-----Saving of airport-----");
+            airportService.save(airport);
+            logger.info("Saved airport: " + airport.toString());
+        } else {
+            logger.info("-----Updating of airport-----");
+            airportService.update(airport);
+            logger.info("Updated airport: " + airport.toString());
+        }
         return "redirect:list";
     }
 
