@@ -28,7 +28,7 @@
 </table>
 
 <h2>Add Airport</h2>
-<c:url value="" var="add"/>
-<a href="${add}">Add new airport</a>
+<c:url value="/airports/addForm" var="addForm"/>
+<a href="${addForm}">Add new airport</a>
 </body>
 </html>

@@ -9,7 +9,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -23,13 +26,32 @@ public class AirportController {
 
 
     @GetMapping("/list")
-    public String list(Model uiModel) {
-        logger.info("-----Listing airports");
+    public ModelAndView list() {
+        logger.info("-----Listing airports-----");
         List<Airport> airports = airportService.findAll();
-        uiModel.addAttribute("airports", airports);
-        logger.info("No. of airports: " + airports.size());
-        return "airports/list";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("airports", airports);
+        modelAndView.setViewName("airports/list");
+        logger.info("Amount of airports: " + airports.size());
+        return modelAndView;
     }
+
+    @GetMapping("/addForm")
+    public ModelAndView addForm() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("airport", new Airport());
+        modelAndView.setViewName("airports/add");
+        return modelAndView;
+    }
+
+    @PostMapping("/add")
+    public String add(@ModelAttribute("airport") Airport airport) {
+        logger.info("-----Adding of airport-----");
+        airportService.save(airport);
+        logger.info("Added airport: " + airport.toString());
+        return "redirect:list";
+    }
+
 
     @Autowired
     public void setAirportService(AirportService airportService) {

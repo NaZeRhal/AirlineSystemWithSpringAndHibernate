@@ -42,10 +42,10 @@ public class WebConfig implements WebMvcConfigurer {
     //Определяет простые автоматизированные
     //контроллеры, предварительно сконфигурированные с ответным кодом состояния
     //и/или представлением для воспроизведения тела ответа.
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("airports/list");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/").setViewName("airports/list");
+//    }
 
     // <=> <mvc:default-servlet-handler/>
     //Активизирует обработчик статических ресурсов.
