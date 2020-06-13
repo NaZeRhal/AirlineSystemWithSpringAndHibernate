@@ -5,14 +5,9 @@ import com.rzhe.max.airlines.service.AirportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,35 +17,44 @@ public class AirportController {
     private static Logger logger = LoggerFactory.getLogger(AirportController.class);
 
     private AirportService airportService;
-    private MessageSource messageSource;
+//    private MessageSource messageSource;
 
 
     @GetMapping("/list")
-    public ModelAndView list() {
+    public String list(Model model) {
         logger.info("-----Listing airports-----");
         List<Airport> airports = airportService.findAll();
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("airports", airports);
-        modelAndView.setViewName("airports/list");
+        model.addAttribute("airports", airports);
         logger.info("Amount of airports: " + airports.size());
-        return modelAndView;
+        return "airports/list";
     }
 
-    @GetMapping("/addForm")
-    public ModelAndView addForm() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("airport", new Airport());
-        modelAndView.setViewName("airports/add");
-        return modelAndView;
+    @GetMapping(value = "/createForm", params = "new")
+    public String createForm(Model model) {
+        model.addAttribute("airport", new Airport());
+        return "airports/edit";
     }
 
-    @PostMapping("/add")
-    public String add(@ModelAttribute("airport") Airport airport) {
-        logger.info("-----Adding of airport-----");
+    @GetMapping(value = "/updateForm/{id}")
+    public String updateForm(@PathVariable("id") Long id, Model model) {
+        Airport airport = airportService.findById(id);
+        model.addAttribute("airport", airport);
+        return "airports/edit";
+    }
+
+    @PostMapping(value = "/save")
+    public String save(@ModelAttribute("airport") Airport airport) {
+        logger.info("-----Saving of airport-----");
         airportService.save(airport);
-        logger.info("Added airport: " + airport.toString());
+        logger.info("Saved airport: " + airport.toString());
         return "redirect:list";
     }
+
+//    @PostMapping("/update")
+//    public String update(@ModelAttribute("airport") Airport airport) {
+//        airportService.save(airport);
+//        return "redirect:list";
+//    }
 
 
     @Autowired
