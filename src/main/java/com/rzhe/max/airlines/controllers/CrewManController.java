@@ -1,15 +1,15 @@
 package com.rzhe.max.airlines.controllers;
 
 import com.rzhe.max.airlines.entities.CrewMan;
+import com.rzhe.max.airlines.entities.Profession;
 import com.rzhe.max.airlines.service.CrewManService;
+import com.rzhe.max.airlines.service.ProfessionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +19,7 @@ public class CrewManController {
     private static Logger logger = LoggerFactory.getLogger(AirportController.class);
 
     private CrewManService crewManService;
+    private ProfessionService professionService;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -32,6 +33,8 @@ public class CrewManController {
     @GetMapping("/createForm")
     public String createForm(Model model) {
         model.addAttribute("crewman", new CrewMan());
+        List<Profession> professions = professionService.findAll();
+        model.addAttribute("professions", professions);
         return "crewman/edit";
     }
 
@@ -39,13 +42,26 @@ public class CrewManController {
     public String updateForm(@PathVariable("id") Long id, Model model) {
         CrewMan crewman = crewManService.findById(id);
         model.addAttribute("crewman", crewman);
+        List<Profession> professions = professionService.findAll();
+        model.addAttribute("professions", professions);
         return "crewman/edit";
     }
 
-
+    @PostMapping("/save")
+    public String save(@ModelAttribute("crewman") CrewMan crewMan) {
+        logger.info("-----Saving of crewman-----");
+        crewManService.save(crewMan);
+        logger.info("Saved crewman: " + crewMan.toString());
+        return "redirect:list";
+    }
 
     @Autowired
     public void setCrewManService(CrewManService crewManService) {
         this.crewManService = crewManService;
+    }
+
+    @Autowired
+    public void setProfessionService(ProfessionService professionService) {
+        this.professionService = professionService;
     }
 }

@@ -16,7 +16,7 @@
 <spring:message code="button.edit" var="editButton"/>
 <spring:message code="button.delete" var="deleteButton"/>
 
-<spring:eval expression="crewman.id == null ? addAirport : editAirport " var="formTitle"/>
+<spring:eval expression="crewman.id == null ? addCrewman : editCrewman " var="formTitle"/>
 <spring:eval expression="crewman.id == null ? addButton : editButton " var="buttonName"/>
 <c:if test="${crewman.id == null}">
     <c:set var="hidden" value="hidden"/>
@@ -28,18 +28,26 @@
 </head>
 <body>
 <h2>${formTitle}</h2>
-<form:form action="/airports/save" modelAttribute="airport">
+<form:form action="/crewman/save" modelAttribute="crewman">
     <table>
         <tr>
-            <th>${airportCity}</th>
-            <th>${airportCode}</th>
+            <th>${crewmanName}</th>
+            <th>${crewmanSurname}</th>
+            <th>${crewmanBirthDate}</th>
+            <th>${crewmanProfession}</th>
         </tr>
         <tr>
             <form:hidden path="id"/>
-            <td><form:input path="city"/></td>
-            <td><form:input path="airportCode"/></td>
+            <td><form:input path="firstName"/></td>
+            <td><form:input path="lastName"/></td>
+            <td><form:input path="dateOfBirth"/></td>
+            <td>
+                <form:select path="profession.id">
+                    <form:options items="${professions}" itemLabel="name" itemValue="id"/>
+                </form:select>
+            </td>
             <td ${hidden}>
-                <a href="/airports/delete/${airport.id}">${deleteButton}</a>
+                <a href="/crewman/delete/${crewman.id}">${deleteButton}</a>
             </td>
         </tr>
     </table>

@@ -4,17 +4,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <spring:message code="crewman.list.title" var="crewmenListTitle"/>
-<spring:message code="crewman.table.name" var="crewManName"/>
-<spring:message code="crewman.table.surname" var="crewManSurname"/>
-<spring:message code="crewman.table.profession" var="crewManProfession"/>
-<spring:message code="crewman.table.dateOfBirth" var="crewManBirthDate"/>
+<spring:message code="crewman.table.name" var="crewmanName"/>
+<spring:message code="crewman.table.surname" var="crewmanSurname"/>
+<spring:message code="crewman.table.profession" var="crewmanProfession"/>
+<spring:message code="crewman.table.dateOfBirth" var="crewmanBirthDate"/>
 
 <spring:message code="button.add" var="addButton"/>
 <spring:message code="button.edit" var="editButton"/>
-
-<c:if test="${crewman.id == null}">
-    <c:set var="hidden" value="hidden"/>
-</c:if>
 
 <html>
 <head>
@@ -24,10 +20,10 @@
 <h2>${crewmenListTitle}</h2>
 <table>
     <tr>
-        <th>${crewManName}</th>
-        <th>${crewManSurname}</th>
-        <th>${crewManBirthDate}</th>
-        <th>${crewManProfession}</th>
+        <th>${crewmanName}</th>
+        <th>${crewmanSurname}</th>
+        <th>${crewmanBirthDate}</th>
+        <th>${crewmanProfession}</th>
     </tr>
     <c:forEach var="crewman" items="${crewmanList}">
         <tr>
@@ -35,7 +31,7 @@
             <td>${crewman.lastName}</td>
             <td>${crewman.dateOfBirth}</td>
             <td>${crewman.profession.name}</td>
-            <td ${hidden}>
+            <td>
                 <c:url value="/crewman/updateForm/${crewman.id}" var="editCrewMan"/>
                 <a href="${editCrewMan}">${editButton}</a>
             </td>
