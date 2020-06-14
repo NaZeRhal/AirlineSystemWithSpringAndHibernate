@@ -29,38 +29,35 @@ public class AirportController {
         return "airports/list";
     }
 
-    @GetMapping(value = "/createForm", params = "new")
+    @GetMapping("/createForm")
     public String createForm(Model model) {
         model.addAttribute("airport", new Airport());
         return "airports/edit";
     }
 
-    @GetMapping(value = "/updateForm/{id}")
+    @GetMapping("/updateForm/{id}")
     public String updateForm(@PathVariable("id") Long id, Model model) {
         Airport airport = airportService.findById(id);
         model.addAttribute("airport", airport);
         return "airports/edit";
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping("/save")
     public String save(@ModelAttribute("airport") Airport airport) {
-        if (airport.getId() == null) {
-            logger.info("-----Saving of airport-----");
-            airportService.save(airport);
-            logger.info("Saved airport: " + airport.toString());
-        } else {
-            logger.info("-----Updating of airport-----");
-            airportService.update(airport);
-            logger.info("Updated airport: " + airport.toString());
-        }
+        logger.info("-----Saving of airport-----");
+        airportService.save(airport);
+        logger.info("Saved airport: " + airport.toString());
         return "redirect:list";
     }
 
-//    @PostMapping("/update")
-//    public String update(@ModelAttribute("airport") Airport airport) {
-//        airportService.save(airport);
-//        return "redirect:list";
-//    }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        logger.info("-----Deleting airport-----");
+        Airport airport = airportService.findById(id);
+        airportService.delete(airport);
+        logger.info("Deleted airport: " + airport.toString());
+        return "redirect:/airports/list";
+    }
 
 
     @Autowired

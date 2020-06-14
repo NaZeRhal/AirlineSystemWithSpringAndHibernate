@@ -36,7 +36,7 @@
 </table>
 
 <h2>Add Airport</h2>
-<c:url value="/airports/createForm?new" var="createForm"/>
+<c:url value="/airports/createForm" var="createForm"/>
 <a href="${createForm}">${addButton}</a>
 </body>
 </html>

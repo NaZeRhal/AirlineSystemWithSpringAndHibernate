@@ -14,7 +14,6 @@ import java.util.List;
 public class AirportServiceImpl implements AirportService {
     private AirportDao airportDao;
 
-
     @Autowired
     public void setAirportDao(AirportDao airportDao) {
         this.airportDao = airportDao;
@@ -42,12 +41,6 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public Airport save(Airport airport) {
         return airportDao.save(airport);
-    }
-
-    @Transactional
-    @Override
-    public Airport update(Airport airport) {
-        return airportDao.update(airport);
     }
 
     @Transactional

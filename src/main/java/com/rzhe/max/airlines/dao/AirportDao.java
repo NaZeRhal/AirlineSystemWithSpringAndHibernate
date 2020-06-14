@@ -13,7 +13,6 @@ public interface AirportDao {
 
     Airport save(Airport airport);
 
-    Airport update(Airport airport);
 
     void delete(Airport airport);
 

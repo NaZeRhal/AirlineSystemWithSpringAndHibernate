@@ -15,5 +15,8 @@
 <br>
 <br>
 <a href="/airports/list">Go to airports list</a>
+<br>
+<br>
+<a href="/crewman/list">Go to crewman list</a>
 </body>
 </html>

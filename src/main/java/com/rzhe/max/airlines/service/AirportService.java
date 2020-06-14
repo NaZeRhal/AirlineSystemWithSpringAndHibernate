@@ -13,7 +13,6 @@ public interface AirportService {
 
     Airport save(Airport airport);
 
-    Airport update(Airport airport);
 
     void delete(Airport airport);
 
