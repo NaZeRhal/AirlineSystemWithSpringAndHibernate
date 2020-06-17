@@ -1,8 +1,10 @@
+<%@ page isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="java.time.format.DateTimeFormatter" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <spring:message code="crewman.add.title" var="addCrewman"/>
 <spring:message code="crewman.edit.title" var="editCrewman"/>
@@ -40,7 +42,7 @@
             <form:hidden path="id"/>
             <td><form:input path="firstName"/></td>
             <td><form:input path="lastName"/></td>
-            <td><form:input path="dateOfBirth"/></td>
+            <td><form:input path="dateOfBirth" placeholder="dd.MM.yyyy"/></td>
             <td>
                 <form:select path="profession.id">
                     <form:options items="${professions}" itemLabel="name" itemValue="id"/>

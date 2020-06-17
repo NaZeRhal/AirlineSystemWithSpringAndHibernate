@@ -1,5 +1,9 @@
 package com.rzhe.max.airlines.entities;
 
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,6 +25,8 @@ public class CrewMan implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+
+//    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
     private Profession profession;
 

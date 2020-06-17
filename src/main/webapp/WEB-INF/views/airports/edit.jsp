@@ -21,24 +21,35 @@
 <html>
 <head>
     <title>${formTitle}</title>
+    <style type="text/css" >
+        .error {color:red}
+    </style>
 </head>
 <body>
 <h2>${formTitle}</h2>
-<form:form action="/airports/save" modelAttribute="airport">
-    <table>
-        <tr>
-            <th>${airportCity}</th>
-            <th>${airportCode}</th>
-        </tr>
-        <tr>
-            <form:hidden path="id"/>
-            <td><form:input path="city"/></td>
-            <td><form:input path="airportCode"/></td>
-            <td ${hidden}>
-                <a href="/airports/delete/${airport.id}">${deleteButton}</a>
-            </td>
-        </tr>
-    </table>
+<form:form action="/airports/save" modelAttribute="airport" >
+
+    <c:if test="${not empty message}">
+        <div id="message" class="${message.type}">${message.message}</div>
+    </c:if>
+    <br>
+    <br>
+    <form:hidden path="id"/>
+
+    <form:label path="city">${airportCity}</form:label>
+    <form:input path="city"/>
+    <form:errors path="city" cssClass="error"/>
+    <p/>
+
+    <form:label path="airportCode">${airportCode}</form:label>
+    <form:input path="airportCode"/>
+    <form:errors path="airportCode" cssClass="error"/>
+    <p/>
+
+    <a href="/airports/delete/${airport.id}" ${hidden}>${deleteButton}</a>
+    <br>
+    <br>
+
     <input type="submit" value="${buttonName}">
 </form:form>
 </body>

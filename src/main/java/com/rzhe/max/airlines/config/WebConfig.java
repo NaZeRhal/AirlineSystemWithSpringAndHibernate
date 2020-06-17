@@ -1,9 +1,19 @@
 package com.rzhe.max.airlines.config;
 
+import com.rzhe.max.airlines.utils.LocalDateFormatter;
+import com.rzhe.max.airlines.utils.LocalDateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+
+
+import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -14,8 +24,16 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
+@PropertySource("classpath:datetime.properties")
 @ComponentScan(basePackages = {"com.rzhe.max.airlines"})
 public class WebConfig implements WebMvcConfigurer {
+
+    private Environment environment;
+
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
     // объявить статические ресурсы
     //Вводит обработчики, предназначенные для
@@ -64,7 +82,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("WEB-INF/i18n/messages","WEB-INF/i18n/application");
+        messageSource.setBasenames("WEB-INF/i18n/messages", "WEB-INF/i18n/application");
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setFallbackToSystemLocale(false);
         return messageSource;
@@ -79,11 +97,6 @@ public class WebConfig implements WebMvcConfigurer {
         return new LocaleChangeInterceptor();
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-    }
-
     // поддерживается хранение и извлечение региональных настроек из сооkiе-файла пользовательского браузера
     @Bean
     CookieLocaleResolver localeResolver() {
@@ -92,5 +105,40 @@ public class WebConfig implements WebMvcConfigurer {
         cookieLocaleResolver.setCookieMaxAge(3600);
         cookieLocaleResolver.setCookieName("locale");
         return cookieLocaleResolver;
+    }
+
+    @Bean
+    public Validator validator() {
+        final LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
+    }
+
+    // <=> <mvc:annotation-driven validator="validator"/>
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
+
+    @Bean
+    public LocalDateFormatter localDateFormatter() {
+        return new LocalDateFormatter(environment.getProperty("date.format"));
+    }
+
+    @Bean
+    public LocalDateTimeFormatter localDateTimeFormatter() {
+        return new LocalDateTimeFormatter(environment.getProperty("date.time.format"));
+    }
+
+    //добавление форматтеров для форматирования отображения дат
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(localDateFormatter());
+        registry.addFormatter(localDateTimeFormatter());
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
     }
 }
