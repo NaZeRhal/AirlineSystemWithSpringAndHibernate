@@ -1,6 +1,5 @@
 <%@ page isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="java.time.format.DateTimeFormatter" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -14,6 +13,7 @@
 
 <spring:message code="button.add" var="addButton"/>
 <spring:message code="button.edit" var="editButton"/>
+<spring:message code="button.home" var="homeButton"/>
 
 <html>
 <head>
@@ -32,7 +32,7 @@
         <tr>
             <td>${crewman.firstName}</td>
             <td>${crewman.lastName}</td>
-            <td>${crewman.dateOfBirth}</td>
+            <td>${crewman.birthDateString}</td>
             <td>${crewman.profession.name}</td>
             <td>
                 <c:url value="/crewman/updateForm/${crewman.id}" var="editCrewMan"/>
@@ -42,8 +42,10 @@
     </c:forEach>
 </table>
 
-<h2>Add Crewman</h2>
 <c:url value="/crewman/createForm" var="createForm"/>
-<a href="${createForm}">${addButton}</a>
+<c:url value="/" var="homeUrl"/>
+<h3><a href="${createForm}">${addButton}</a></h3>
+<h3><a href="${homeUrl}">${homeButton}</a></h3>
+
 </body>
 </html>

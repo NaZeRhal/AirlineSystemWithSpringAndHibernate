@@ -12,11 +12,7 @@
 </head>
 <body>
 <h1>HELLO</h1>
-<br>
-<br>
-<a href="/airports/list">Go to airports list</a>
-<br>
-<br>
-<a href="/crewman/list">Go to crewman list</a>
+<h3><a href="/airports/list">Go to airports list</a></h3>
+<h3><a href="/crewman/list">Go to crewman list</a></h3>
 </body>
 </html>

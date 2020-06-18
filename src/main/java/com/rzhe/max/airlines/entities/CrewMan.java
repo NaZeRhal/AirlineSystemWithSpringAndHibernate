@@ -1,9 +1,11 @@
 package com.rzhe.max.airlines.entities;
 
+import org.springframework.context.annotation.PropertySource;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ import java.util.Set;
                 query = "select distinct c from CrewMan c " +
                         "left join fetch c.flights f")
 })
+@PropertySource("classpath:datetime.properties")
 public class CrewMan implements Serializable {
 
     @Id
@@ -25,7 +28,6 @@ public class CrewMan implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "")
     @Column(name = "first_name")
     private String firstName;
 
@@ -93,6 +95,15 @@ public class CrewMan implements Serializable {
 
     public void setFlights(Set<Flight> flights) {
         this.flights = flights;
+    }
+
+    @Transient
+    public String getBirthDateString() {
+        String birthDateString = "";
+        if (dateOfBirth != null) {
+            birthDateString = DateTimeFormatter.ofPattern("").format(dateOfBirth);
+        }
+        return birthDateString;
     }
 
     @Override

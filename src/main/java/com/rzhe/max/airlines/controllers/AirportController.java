@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,7 +78,8 @@ public class AirportController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes, Locale locale) {
+    public String delete(@PathVariable("id") Long id, Model model,
+                         RedirectAttributes redirectAttributes, Locale locale) {
         logger.info("-----Deleting airport-----");
         Airport airport = airportService.findById(id);
         airportService.delete(airport);
