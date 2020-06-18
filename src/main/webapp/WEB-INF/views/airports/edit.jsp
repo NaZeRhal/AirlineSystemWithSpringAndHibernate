@@ -22,7 +22,8 @@
 <head>
     <title>${formTitle}</title>
     <style type="text/css" >
-        .error {color:red}
+        /*.error {color:red}*/
+        <%@include file="../../styles/messages.css"%>
     </style>
 </head>
 <body>

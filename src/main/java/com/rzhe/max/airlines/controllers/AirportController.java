@@ -6,10 +6,12 @@ import com.rzhe.max.airlines.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,6 +27,12 @@ public class AirportController {
     private AirportService airportService;
     private MessageSource messageSource;
 
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -56,7 +64,7 @@ public class AirportController {
             model.addAttribute("message", new Message("error",
                     messageSource.getMessage("airport.save.fail", new Object[]{}, locale)));
             model.addAttribute("airport", airport);
-            logger.info("Validation failed for: " + airport.toString());
+            logger.info("Binding failed: " + bindingResult);
             return "airports/edit";
         }
         model.asMap().clear();
@@ -66,24 +74,6 @@ public class AirportController {
         logger.info("Saved airport: " + airport.toString());
         return "redirect:list";
     }
-
-//    @PostMapping("/update")
-//    public String update(@Valid @ModelAttribute("airport") Airport airport, BindingResult bindingResult,
-//                         Model model, Locale locale, RedirectAttributes redirectAttributes) {
-//        logger.info("-----Updating of airport-----");
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("message", new Message("error",
-//                    messageSource.getMessage("airport.save.fail", new Object[]{}, locale)));
-//            model.addAttribute("airport", airport);
-//            return "airports/edit";
-//        }
-//        model.asMap().clear();
-//        redirectAttributes.addFlashAttribute("message", new Message("success",
-//                messageSource.getMessage("airport.save.success", new Object[]{}, locale)));
-//        airportService.save(airport);
-//        logger.info("Saved airport: " + airport.toString());
-//        return "redirect:list";
-//    }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {

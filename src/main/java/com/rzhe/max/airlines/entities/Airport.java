@@ -2,6 +2,7 @@ package com.rzhe.max.airlines.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class Airport implements Serializable {
     private String city;
 
     @NotBlank(message = "{validation.airport.code.NotBlank.message}")
-    @Size(min = 3, max = 3, message = "{validation.airport.code.Size.message}")
+    @Pattern(regexp = "[A-Z]{3,}", message = "{validation.airport.code.Pattern.message}")
     @Column(name = "airport_code")
     private String airportCode;
 
