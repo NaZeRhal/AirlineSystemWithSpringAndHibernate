@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 
 <spring:message code="airports.add.title" var="addAirport"/>
 <spring:message code="airports.edit.title" var="editAirport"/>
@@ -22,7 +22,6 @@
 <head>
     <title>${formTitle}</title>
     <style type="text/css" >
-        /*.error {color:red}*/
         <%@include file="../../styles/messages.css"%>
     </style>
 </head>
@@ -40,12 +39,12 @@
     <form:label path="city">${airportCity}</form:label>
     <form:input path="city"/>
     <form:errors path="city" cssClass="error"/>
-    <p/>
+    <br>
 
     <form:label path="airportCode">${airportCode}</form:label>
     <form:input path="airportCode"/>
     <form:errors path="airportCode" cssClass="error"/>
-    <p/>
+    <br>
 
     <a href="/airports/delete/${airport.id}" ${hidden}>${deleteButton}</a>
     <br>

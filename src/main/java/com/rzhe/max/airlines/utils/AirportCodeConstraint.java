@@ -12,6 +12,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AirportCodeConstraint {
+    String pattern();
     String message() default "Invalid airport code";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

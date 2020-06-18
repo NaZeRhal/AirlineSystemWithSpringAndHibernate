@@ -1,10 +1,7 @@
 package com.rzhe.max.airlines.entities;
 
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -18,23 +15,37 @@ import java.util.Set;
                         "left join fetch c.flights f " +
                         "where c.id = :id"),
         @NamedQuery(name = "CrewMan.findAllWithFlights",
-        query = "select distinct c from CrewMan c " +
-                "left join fetch c.flights f")
+                query = "select distinct c from CrewMan c " +
+                        "left join fetch c.flights f")
 })
 public class CrewMan implements Serializable {
-    private Long id;
-    private String firstName;
-    private String lastName;
-
-//    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private LocalDate dateOfBirth;
-    private Profession profession;
-
-    private Set<Flight> flights = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    private Long id;
+
+    @NotBlank(message = "")
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @ManyToOne
+    @JoinColumn(name = "profession_id")
+    private Profession profession;
+
+    @ManyToMany
+    @JoinTable(name = "flight_crewman",
+            joinColumns = @JoinColumn(name = "crewman_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private Set<Flight> flights = new HashSet<>();
+
+
     public Long getId() {
         return id;
     }
@@ -43,7 +54,7 @@ public class CrewMan implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "first_name")
+
     public String getFirstName() {
         return firstName;
     }
@@ -52,7 +63,6 @@ public class CrewMan implements Serializable {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -61,7 +71,6 @@ public class CrewMan implements Serializable {
         this.lastName = lastName;
     }
 
-    @Column(name = "date_of_birth")
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -70,8 +79,6 @@ public class CrewMan implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "profession_id")
     public Profession getProfession() {
         return profession;
     }
@@ -80,10 +87,6 @@ public class CrewMan implements Serializable {
         this.profession = profession;
     }
 
-    @ManyToMany
-    @JoinTable(name = "flight_crewman",
-            joinColumns = @JoinColumn(name = "crewman_id"),
-            inverseJoinColumns = @JoinColumn(name = "flight_id"))
     public Set<Flight> getFlights() {
         return flights;
     }

@@ -4,8 +4,6 @@ import com.rzhe.max.airlines.utils.AirportCodeConstraint;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +33,7 @@ public class Airport implements Serializable {
     private String city;
 
     @NotBlank(message = "{validation.airport.code.NotBlank.message}")
-    @AirportCodeConstraint(message = "{validation.airport.code.Pattern.message}")
+    @AirportCodeConstraint(pattern = "[A-Z]{3,}", message = "{validation.airport.code.Pattern.message}")
     @Column(name = "airport_code")
     private String airportCode;
 
@@ -55,7 +53,6 @@ public class Airport implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getCity() {
         return city;

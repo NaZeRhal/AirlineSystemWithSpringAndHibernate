@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 
 <spring:message code="airports.list.title" var="airportListTitle"/>
 <spring:message code="airports.table.city" var="airportCity"/>
@@ -13,18 +13,22 @@
 <html>
 <head>
     <title>${airportListTitle}</title>
+    <style type="text/css" >
+        <%@include file="../../styles/messages.css"%>
+    </style>
 </head>
 <body>
 <h2>${airportListTitle}</h2>
+<c:if test="${not empty message}">
+    <div id="message" class="${message.type}">${message.message}</div><br>
+</c:if>
 <table>
     <tr>
-<%--        <th>ID</th>--%>
         <th>${airportCity}</th>
         <th>${airportCode}</th>
     </tr>
     <c:forEach var="airport" items="${airports}">
         <tr>
-<%--            <td>${airport.id}</td>--%>
             <td>${airport.city}</td>
             <td>${airport.airportCode}</td>
             <td>
