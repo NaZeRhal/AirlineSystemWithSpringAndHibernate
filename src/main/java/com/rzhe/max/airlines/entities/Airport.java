@@ -1,5 +1,7 @@
 package com.rzhe.max.airlines.entities;
 
+import com.rzhe.max.airlines.utils.AirportCodeConstraint;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -33,7 +35,7 @@ public class Airport implements Serializable {
     private String city;
 
     @NotBlank(message = "{validation.airport.code.NotBlank.message}")
-    @Pattern(regexp = "[A-Z]{3,}", message = "{validation.airport.code.Pattern.message}")
+    @AirportCodeConstraint(message = "{validation.airport.code.Pattern.message}")
     @Column(name = "airport_code")
     private String airportCode;
 
