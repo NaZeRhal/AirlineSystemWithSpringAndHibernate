@@ -2,15 +2,12 @@ package com.rzhe.max.airlines.config;
 
 import com.rzhe.max.airlines.utils.LocalDateFormatter;
 import com.rzhe.max.airlines.utils.LocalDateTimeFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 
-import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -24,16 +21,8 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@PropertySource("classpath:datetime.properties")
 @ComponentScan(basePackages = {"com.rzhe.max.airlines"})
 public class WebConfig implements WebMvcConfigurer {
-
-    private Environment environment;
-
-    @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
 
     // объявить статические ресурсы
     //Вводит обработчики, предназначенные для
@@ -122,12 +111,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public LocalDateFormatter localDateFormatter() {
-        return new LocalDateFormatter(environment.getProperty("date.format"));
+        return new LocalDateFormatter();
     }
 
     @Bean
     public LocalDateTimeFormatter localDateTimeFormatter() {
-        return new LocalDateTimeFormatter(environment.getProperty("date.time.format"));
+        return new LocalDateTimeFormatter();
     }
 
     //добавление форматтеров для форматирования отображения дат

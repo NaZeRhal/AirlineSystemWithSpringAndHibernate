@@ -8,19 +8,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class LocalDateTimeFormatter implements Formatter<LocalDateTime> {
-    private String pattern;
-
-    public LocalDateTimeFormatter(String pattern) {
-        this.pattern = pattern;
-    }
 
     @Override
     public LocalDateTime parse(String s, Locale locale) throws ParseException {
-        return LocalDateTime.parse(s, DateTimeFormatter.ofPattern(pattern));
+        return LocalDateTime.parse(s, getFormatter());
     }
 
     @Override
     public String print(LocalDateTime localDateTime, Locale locale) {
-        return DateTimeFormatter.ofPattern(pattern).format(localDateTime);
+        return getFormatter().format(localDateTime);
+    }
+
+    private DateTimeFormatter getFormatter() {
+        return DateTimeFormatter.ofPattern("dd--MM--yyyy HH:mm");
     }
 }
