@@ -1,4 +1,4 @@
-package com.rzhe.max.airlines.utils;
+package com.rzhe.max.airlines.validation.airport;
 
 
 import javax.validation.Constraint;

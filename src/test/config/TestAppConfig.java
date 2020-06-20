@@ -1,6 +1,6 @@
 package config;
 
-import com.rzhe.max.airlines.config.AppContext;
+import com.rzhe.max.airlines.config.AppDataConfig;
 import com.rzhe.max.airlines.config.WebConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

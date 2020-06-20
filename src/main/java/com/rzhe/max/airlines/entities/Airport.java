@@ -1,6 +1,6 @@
 package com.rzhe.max.airlines.entities;
 
-import com.rzhe.max.airlines.utils.AirportCodeConstraint;
+import com.rzhe.max.airlines.validation.airport.AirportCodeConstraint;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

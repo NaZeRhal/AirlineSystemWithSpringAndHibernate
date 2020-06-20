@@ -1,13 +1,13 @@
 package com.rzhe.max.airlines.entities;
 
 import com.rzhe.max.airlines.utils.LocalDateFormatter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -30,13 +30,16 @@ public class CrewMan implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "{crewman.firstName.NotBlank.message}")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotBlank(message = "{crewman.lastName.NotBlank.message}")
     @Column(name = "last_name")
     private String lastName;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 

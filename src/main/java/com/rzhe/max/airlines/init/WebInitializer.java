@@ -1,6 +1,6 @@
 package com.rzhe.max.airlines.init;
 
-import com.rzhe.max.airlines.config.AppContext;
+import com.rzhe.max.airlines.config.AppDataConfig;
 import com.rzhe.max.airlines.config.WebConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -13,7 +13,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     //метод создает корневой контекст приложения с помощью данных конфиг-классов
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{AppContext.class};
+        return new Class<?>[]{AppDataConfig.class};
     }
 
     //метод создает контекст веб-приложения с помощью данного конфиг-класса

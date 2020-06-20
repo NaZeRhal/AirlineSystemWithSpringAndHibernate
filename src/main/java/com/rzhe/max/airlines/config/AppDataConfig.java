@@ -20,8 +20,8 @@ import java.util.Properties;
 @PropertySource("classpath:database.properties")
 @ComponentScan(basePackages = "com.rzhe.max.airlines")
 @EnableTransactionManagement
-public class AppContext {
-    private static Logger logger = LoggerFactory.getLogger(AppContext.class);
+public class AppDataConfig {
+    private static Logger logger = LoggerFactory.getLogger(AppDataConfig.class);
 
     private Environment environment;
 

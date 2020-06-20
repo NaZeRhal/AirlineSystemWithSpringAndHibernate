@@ -6,8 +6,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <spring:message code="crewman.list.title" var="crewmenListTitle"/>
-<spring:message code="crewman.table.name" var="crewmanName"/>
-<spring:message code="crewman.table.surname" var="crewmanSurname"/>
+<spring:message code="crewman.table.firstName" var="crewmanFirstName"/>
+<spring:message code="crewman.table.lastName" var="crewmanLastName"/>
 <spring:message code="crewman.table.profession" var="crewmanProfession"/>
 <spring:message code="crewman.table.dateOfBirth" var="crewmanBirthDate"/>
 
@@ -18,13 +18,20 @@
 <html>
 <head>
     <title>${crewmenListTitle}</title>
+    <style type="text/css" >
+        <%@include file="../../styles/messages.css"%>
+    </style>
 </head>
 <body>
 <h2>${crewmenListTitle}</h2>
+<c:if test="${not empty message}">
+    <div id="message" class="${message.type}">${message.message}</div>
+    <br>
+</c:if>
 <table>
     <tr>
-        <th>${crewmanName}</th>
-        <th>${crewmanSurname}</th>
+        <th>${crewmanFirstName}</th>
+        <th>${crewmanLastName}</th>
         <th>${crewmanBirthDate}</th>
         <th>${crewmanProfession}</th>
     </tr>
