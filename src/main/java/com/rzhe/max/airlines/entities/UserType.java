@@ -16,13 +16,19 @@ import java.util.Set;
                         "left join fetch u.userSet us ")
 })
 public class UserType implements Serializable {
-    private Long id;
-    private String name;
-    private Set<User> userSet = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    private Long id;
+
+    @Column(name = "user_type_name")
+    private String name;
+
+    @OneToMany(mappedBy = "userType", cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<User> userSet = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -31,7 +37,6 @@ public class UserType implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "user_type_name")
     public String getName() {
         return name;
     }
@@ -40,8 +45,6 @@ public class UserType implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "userType", cascade = CascadeType.ALL,
-            orphanRemoval = true)
     public Set<User> getUserSet() {
         return userSet;
     }

@@ -7,6 +7,8 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -29,14 +31,25 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     }
 
     //массив фильтров для применения к каждому запросу
-    @Override
-    protected Filter[] getServletFilters() {
-        CharacterEncodingFilter cef = new CharacterEncodingFilter();
-        cef.setEncoding("UTF-8");
-        cef.setForceEncoding(true);
-        return new Filter[]{new HiddenHttpMethodFilter(), cef};
-        //HiddenHttpMethodFilter поддерживает другие методы доступа по сетевому
-        //протоколу НТТР, кроме GET и POST (например,
-        //метода PUT
-    }
+//    @Override
+//    protected Filter[] getServletFilters() {
+//        CharacterEncodingFilter cef = new CharacterEncodingFilter();
+//        cef.setEncoding("UTF-8");
+//        cef.setForceEncoding(true);
+//        return new Filter[]{new HiddenHttpMethodFilter(), cef};
+//
+//
+//        //HiddenHttpMethodFilter поддерживает другие методы доступа по сетевому
+//        //протоколу НТТР, кроме GET и POST (например,
+//        //метода PUT
+//    }
+
+//    @Override
+//    protected FilterRegistration.Dynamic registerServletFilter(ServletContext servletContext, Filter filter) {
+//        FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
+//        characterEncodingFilter.setInitParameter("encoding", "UTF-8");
+//        characterEncodingFilter.setInitParameter("forceEncoding", "true");
+//        characterEncodingFilter.addMappingForUrlPatterns(null, false, "/*");
+//        return characterEncodingFilter;
+//    }
 }

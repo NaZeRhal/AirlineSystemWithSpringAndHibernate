@@ -54,6 +54,9 @@ public class AppDataConfig {
         hibernateProp.put("hibernate.max_fetch_depth", environment.getProperty("hibernate.max-fetch-depth"));
         hibernateProp.put("hibernate.jdbc.batch_size", environment.getProperty("hibernate.jdbc.batch-size"));
         hibernateProp.put("hibernate.jdbc.fetch_size", environment.getProperty("hibernate.jdbc.fetch-size"));
+        hibernateProp.put("hibernate.connection.characterEncoding", environment.getProperty("hibernate.connection.characterEncoding"));
+        hibernateProp.put("hibernate.connection.CharSet", environment.getProperty("hibernate.connection.CharSet"));
+        hibernateProp.put("hibernate.connection.useUnicode", environment.getProperty("hibernate.connection.useUnicode"));
         return hibernateProp;
     }
 

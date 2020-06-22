@@ -41,7 +41,12 @@ public class Profession implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "profession", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "profession",
+            cascade = {
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+                    CascadeType.DETACH},
             orphanRemoval = true)
     public Set<CrewMan> getCrewMEN() {
         return crewMEN;

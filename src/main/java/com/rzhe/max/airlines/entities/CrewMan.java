@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -30,20 +31,25 @@ public class CrewMan implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "{crewman.firstName.NotBlank.message}")
+    @NotBlank(message = "{validation.crewMan.firstName.NotBlank.message}")
     @Column(name = "first_name")
     private String firstName;
 
-    @NotBlank(message = "{crewman.lastName.NotBlank.message}")
+    @NotBlank(message = "{validation.crewMan.lastName.NotBlank.message}")
     @Column(name = "last_name")
     private String lastName;
 
-    @NotNull
+    @NotNull(message = "{validation.crewMan.dateOfBirth.NotNull.message}")
+    @Past
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
     @JoinColumn(name = "profession_id")
     private Profession profession;
 
