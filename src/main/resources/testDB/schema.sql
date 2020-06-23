@@ -78,7 +78,6 @@ CREATE TABLE flight_crewman (
   flight_id  int(11) NOT NULL,
   crewman_id int(11) NOT NULL,
   PRIMARY KEY (flight_id, crewman_id),
-  CONSTRAINT flight_id_flight_table FOREIGN KEY (flight_id) REFERENCES flights (id)
-    ON DELETE CASCADE,
+  CONSTRAINT flight_id_flight_table FOREIGN KEY (flight_id) REFERENCES flights (id),
   CONSTRAINT crewman_id_crewman_table FOREIGN KEY (crewman_id) REFERENCES crew_man (id)
 );

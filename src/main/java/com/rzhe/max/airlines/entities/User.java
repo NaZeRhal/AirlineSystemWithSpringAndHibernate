@@ -1,6 +1,7 @@
 package com.rzhe.max.airlines.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
@@ -18,20 +19,27 @@ public class User implements Serializable {
     @Column(name = "id")
     private Long id;
 
-
+    @NotBlank(message = "{validation.user.firstName.NotBlank.message}")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotBlank(message = "{validation.user.lastName.NotBlank.message}")
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank(message = "{validation.user.login.NotBlank.message}")
     @Column(name = "login")
     private String login;
 
+    @NotBlank(message = "{validation.user.password.NotBlank.message}")
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
     @JoinColumn(name = "user_type_id")
     private UserType userType;
 

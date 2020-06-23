@@ -17,13 +17,24 @@ import java.util.Set;
                         " left join fetch p.crewMEN c")
 })
 public class Profession implements Serializable {
-    private Long id;
-    private String name;
-    private Set<CrewMan> crewMEN = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    private Long id;
+
+    @Column(name = "profession_name")
+    private String name;
+
+    @OneToMany(mappedBy = "profession",
+            cascade = {
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+                    CascadeType.DETACH})
+    private Set<CrewMan> crewMEN = new HashSet<>();
+
+
     public Long getId() {
         return id;
     }
@@ -32,7 +43,6 @@ public class Profession implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "profession_name")
     public String getName() {
         return name;
     }
@@ -41,13 +51,6 @@ public class Profession implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "profession",
-            cascade = {
-                    CascadeType.REFRESH,
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE,
-                    CascadeType.DETACH},
-            orphanRemoval = true)
     public Set<CrewMan> getCrewMEN() {
         return crewMEN;
     }

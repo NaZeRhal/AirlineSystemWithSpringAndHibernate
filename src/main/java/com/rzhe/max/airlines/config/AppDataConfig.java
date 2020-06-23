@@ -1,5 +1,6 @@
 package com.rzhe.max.airlines.config;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +34,22 @@ public class AppDataConfig {
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         try {
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-            dataSource.setUrl(environment.getProperty("jdbc.url"));
-            dataSource.setUsername(environment.getProperty("jdbc.username"));
+            ComboPooledDataSource dataSource = new ComboPooledDataSource();
+            dataSource.setDriverClass(environment.getProperty("jdbc.driverClassName"));
+            dataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
+            dataSource.setUser(environment.getProperty("jdbc.username"));
             dataSource.setPassword(environment.getProperty("jdbc.password"));
+
+            dataSource.setMinPoolSize(Integer.parseInt(environment.getProperty("jdbc.minPoolSize")));
+            dataSource.setMaxPoolSize(Integer.parseInt(environment.getProperty("jdbc.maxPoolSize")));
+            dataSource.setMaxIdleTime(Integer.parseInt(environment.getProperty("jdbc.maxIdleTime")));
+
+
+//            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//            dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
+//            dataSource.setUrl(environment.getProperty("jdbc.url"));
+//            dataSource.setUsername(environment.getProperty("jdbc.username"));
+//            dataSource.setPassword(environment.getProperty("jdbc.password"));
             return dataSource;
         } catch (Exception e) {
             logger.error("DataSource bean cannot be created!", e);

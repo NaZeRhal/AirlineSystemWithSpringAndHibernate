@@ -53,7 +53,11 @@ public class CrewMan implements Serializable {
     @JoinColumn(name = "profession_id")
     private Profession profession;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
     @JoinTable(name = "flight_crewman",
             joinColumns = @JoinColumn(name = "crewman_id"),
             inverseJoinColumns = @JoinColumn(name = "flight_id"))
@@ -115,7 +119,6 @@ public class CrewMan implements Serializable {
         if (dateOfBirth != null) {
             LocalDateFormatter formatter = new LocalDateFormatter();
             birthDateString = formatter.print(dateOfBirth, Locale.getDefault());
-//            birthDateString = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(dateOfBirth);
         }
         return birthDateString;
     }

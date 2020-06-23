@@ -16,13 +16,23 @@ import java.util.Set;
                         "left join fetch f.flights fs")
 })
 public class FlightStatus implements Serializable {
-    private Long id;
-    private String name;
-    private Set<Flight> flights = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    private Long id;
+
+    @Column(name = "flight_status_name")
+    private String name;
+
+    @OneToMany(mappedBy = "flightStatus", cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
+    private Set<Flight> flights = new HashSet<>();
+
+
     public Long getId() {
         return id;
     }
@@ -31,7 +41,7 @@ public class FlightStatus implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "flight_status_name")
+
     public String getName() {
         return name;
     }
@@ -40,7 +50,7 @@ public class FlightStatus implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "flightStatus", cascade = CascadeType.ALL, orphanRemoval = true)
+
     public Set<Flight> getFlights() {
         return flights;
     }

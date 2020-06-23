@@ -48,8 +48,6 @@ public class CrewManController {
     @GetMapping("/createForm")
     public String createForm(Model model) {
         model.addAttribute("crewman", new CrewMan());
-        List<Profession> professions = professionService.findAll();
-        model.addAttribute("professions", professions);
         return "crewman/edit";
     }
 

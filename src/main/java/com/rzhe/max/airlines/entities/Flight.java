@@ -17,20 +17,55 @@ import java.util.Set;
                         "left join fetch f.crewManList c")
 })
 public class Flight implements Serializable {
-    private Long id;
-    private String flightCode;
-    private Airport departureAirport;
-    private Airport arrivalAirport;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
-    private FlightStatus flightStatus;
-
-    //    private List<Airport> airports = new ArrayList<>();
-    private Set<CrewMan> crewManList;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    private Long id;
+
+    @Column(name = "flight_code")
+    private String flightCode;
+
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
+    @JoinColumn(name = "departure_airport_id")
+    private Airport departureAirport;
+
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
+    @JoinColumn(name = "arrival_airport_id")
+    private Airport arrivalAirport;
+
+    @Column(name = "departure_time")
+    private LocalDateTime departureTime;
+
+    @Column(name = "arrival_time")
+    private LocalDateTime arrivalTime;
+
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
+    @JoinColumn(name = "flight_status_id")
+    private FlightStatus flightStatus;
+
+    @ManyToMany(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
+    @JoinTable(name = "flight_crewman",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "crewman_id"))
+    private Set<CrewMan> crewManList;
+
     public Long getId() {
         return id;
     }
@@ -39,7 +74,6 @@ public class Flight implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "flight_code")
     public String getFlightCode() {
         return flightCode;
     }
@@ -48,8 +82,6 @@ public class Flight implements Serializable {
         this.flightCode = flightCode;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "departure_airport_id")
     public Airport getDepartureAirport() {
         return departureAirport;
     }
@@ -58,8 +90,6 @@ public class Flight implements Serializable {
         this.departureAirport = airport;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "arrival_airport_id")
     public Airport getArrivalAirport() {
         return arrivalAirport;
     }
@@ -68,7 +98,6 @@ public class Flight implements Serializable {
         this.arrivalAirport = arrivalAirport;
     }
 
-    @Column(name = "departure_time")
     public LocalDateTime getDepartureTime() {
         return departureTime;
     }
@@ -77,7 +106,6 @@ public class Flight implements Serializable {
         this.departureTime = departureTime;
     }
 
-    @Column(name = "arrival_time")
     public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
@@ -86,8 +114,6 @@ public class Flight implements Serializable {
         this.arrivalTime = arrivalTime;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "flight_status_id")
     public FlightStatus getFlightStatus() {
         return flightStatus;
     }
@@ -96,10 +122,6 @@ public class Flight implements Serializable {
         this.flightStatus = flightStatus;
     }
 
-    @ManyToMany
-    @JoinTable(name = "flight_crewman",
-            joinColumns = @JoinColumn(name = "flight_id"),
-            inverseJoinColumns = @JoinColumn(name = "crewman_id"))
     public Set<CrewMan> getCrewManList() {
         return crewManList;
     }
