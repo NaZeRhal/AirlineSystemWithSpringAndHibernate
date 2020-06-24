@@ -70,6 +70,22 @@ public class UserController {
         return "redirect:list";
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id, Model model,
+                         RedirectAttributes redirectAttributes, Locale locale) {
+        logger.info("-----Deleting of user-----");
+        User user = userService.findById(id);
+        userService.delete(user);
+        model.asMap().clear();
+        redirectAttributes.addFlashAttribute("message", new Message("success",
+                messageSource.getMessage("user.delete.success",
+                        new Object[]{user.getFirstName(), user.getLastName()},
+                        locale)));
+        logger.info("Deleted crewman: " + user.toString());
+        return "redirect:/users/list";
+
+    }
+
     @ModelAttribute
     public void addAttributes(Model model) {
         List<UserType> userTypes = userTypeService.findAll();

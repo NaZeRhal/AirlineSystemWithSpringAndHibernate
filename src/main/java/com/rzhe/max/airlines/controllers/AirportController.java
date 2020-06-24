@@ -32,6 +32,7 @@ public class AirportController {
     public void initBinder(WebDataBinder binder) {
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         binder.registerCustomEditor(String.class, stringTrimmerEditor);
+
     }
 
     @GetMapping("/list")
@@ -63,7 +64,7 @@ public class AirportController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("message", new Message("error",
                     messageSource.getMessage("airport.save.fail",
-                            new Object[]{airport.getCity(), airport.getAirportCode()}, locale)));
+                            new Object[]{}, locale)));
             model.addAttribute("airport", airport);
             logger.info("Binding failed: " + bindingResult);
             return "airports/edit";

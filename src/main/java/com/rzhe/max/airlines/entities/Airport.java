@@ -32,7 +32,6 @@ public class Airport implements Serializable {
     @Column(name = "city")
     private String city;
 
-    @NotBlank(message = "{validation.airport.code.NotBlank.message}")
     @AirportCodeConstraint(pattern = "[A-Z]{3,}", message = "{validation.airport.code.Pattern.message}")
     @Column(name = "airport_code")
     private String airportCode;

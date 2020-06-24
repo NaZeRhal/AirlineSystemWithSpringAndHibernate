@@ -30,10 +30,6 @@ public class AirportDaoImpl implements AirportDao {
                 .getNamedQuery("Airport.findById")
                 .setParameter("id", id)
                 .uniqueResult();
-//        return (Airport) sessionFactory.getCurrentSession()
-//                .createQuery("select a from Airport a left join fetch a.departures ds left join fetch a.arrivals ar where a.id = :id")
-//                .setParameter("id", id)
-//                .uniqueResult();
     }
 
     @Transactional(readOnly = true)

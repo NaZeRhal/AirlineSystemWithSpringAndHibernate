@@ -17,63 +17,86 @@
 <spring:message code="button.add" var="addButton"/>
 <spring:message code="button.edit" var="editButton"/>
 <spring:message code="button.delete" var="deleteButton"/>
+<spring:message code="button.back" var="backButton"/>
 
 <spring:eval expression="user.id == null ? addUser : editUser " var="formTitle"/>
 <spring:eval expression="user.id == null ? addButton : editButton " var="buttonName"/>
-<c:if test="${user.id == null}">
-    <c:set var="hidden" value="hidden"/>
-</c:if>
 
 <html>
 <head>
     <title>${formTitle}</title>
     <style type="text/css">
         <%@include file="../../styles/messages.css"%>
+        <%@include file="../../styles/custom-style.css"%>
+        <%@include file="../../styles/edit-form-style.css"%>
     </style>
 </head>
 <body>
-<h2>${formTitle}</h2>
-<form:form action="/users/save" modelAttribute="user">
+<div id="wrapper">
+    <div id="header">
+        <h2>${formTitle}</h2>
+    </div>
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
         <br>
     </c:if>
+    <div id="container">
+        <form:form action="/users/save" modelAttribute="user">
+            <form:hidden path="id"/>
+            <table>
+                <tbody>
+                <tr>
+                    <td><form:label path="firstName">${userFirstName}</form:label></td>
+                    <td>
+                        <form:input path="firstName"/>
+                        <form:errors path="firstName" cssClass="error"/>
+                    </td>
+                </tr>
 
-    <form:hidden path="id"/>
+                <tr>
+                    <td><form:label path="lastName">${userLastName}</form:label></td>
+                    <td>
+                        <form:input path="lastName"/>
+                        <form:errors path="lastName" cssClass="error"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><form:label path="login">${userLogin}</form:label></td>
+                    <td>
+                        <form:input path="login"/>
+                        <form:errors path="login" cssClass="error"/>
+                    </td>
+                </tr>
 
-    <form:label path="firstName">${userFirstName}</form:label>
-    <form:input path="firstName"/>
-    <form:errors path="firstName" cssClass="error"/>
-    <br>
+                <tr>
+                    <td><form:label path="password">${userPassword}</form:label></td>
+                    <td>
+                        <form:input path="password"/>
+                        <form:errors path="password" cssClass="error"/>
+                    </td>
+                </tr>
 
-    <form:label path="lastName">${userLastName}</form:label>
-    <form:input path="lastName"/>
-    <form:errors path="lastName" cssClass="error"/>
-    <br>
-
-    <form:label path="login">${userLogin}</form:label>
-    <form:input path="login"/>
-    <form:errors path="login" cssClass="error"/>
-    <br>
-
-    <form:label path="password">${userPassword}</form:label>
-    <form:input path="password"/>
-    <form:errors path="password" cssClass="error"/>
-    <br>
-
-    <form:label path="userType">${userUserType}</form:label>
-    <form:select path="userType.id">
-        <form:options items="${userTypes}" itemLabel="name" itemValue="id"/>
-    </form:select>
-    <form:errors path="userType" cssClass="error"/>
-    <br>
-
-    <a href="/crewman/delete/${user.id}"${hidden}>${deleteButton}</a>
-    <br>
-    <br>
-
-    <input type="submit" value="${buttonName}">
-</form:form>
+                <tr>
+                    <td><form:label path="userType">${userUserType}</form:label></td>
+                    <td>
+                        <form:select path="userType.id">
+                            <form:options items="${userTypes}" itemLabel="name" itemValue="id"/>
+                        </form:select>
+                        <form:errors path="userType" cssClass="error"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label></label></td>
+                    <td><input type="submit" value="${buttonName}" class="save"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form:form>
+        <p>
+            <a href="${pageContext.request.contextPath}/users/list">${backButton}</a>
+        </p>
+    </div>
+</div>
 </body>
 </html>
 
